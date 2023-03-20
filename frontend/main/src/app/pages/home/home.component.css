@@ -1,0 +1,18 @@
+.custom-bg{
+    background-color: #a744d1c9;
+  }
+  
+  .obj{
+    background-color: transparent;
+    margin-top: 5%;
+    /* margin-bottom: %; */
+  }
+  .play{
+    font-size: 375%;
+    font-weight: 550;
+    text-shadow:  0 0 10px #fff,0 0 15px #dbb0ed,
+      0 0 20px #dbb0ed;
+  }
+  .bod{
+    font-size: 110%;
+  }

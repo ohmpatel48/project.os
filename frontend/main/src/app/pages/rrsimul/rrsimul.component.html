@@ -1,0 +1,82 @@
+<nav>
+    <div class="menu">
+      <div class="logo">
+        <a href="#">Round Robin Algorithm</a>
+      </div>
+      <ul>
+        <li><a href="first.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#">Feedback</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <div class="visualizer">
+    <div class="error">Invalid Input</div>
+    <div class="container">
+      <div>
+        <div class="buttons">
+          <div class="play"><button class="start" (click)="start(timeq.value)">Start</button></div>
+          <div class="reset"><button class="start" (click)="reset()">Reset</button></div>
+        </div>
+        <div class="time-q">Time Quantum: <input type="text" #timeq /></div>
+        <div class="avg-tat">Average TAT : <span>0</span></div>
+        <div class="avg-wt">Average WT : <span>0</span></div>
+        <div class="avg-rt">Average RT : <span>0</span></div>
+      </div>
+      <div>
+        <div class="add-process">
+          <div class="input">
+            <div class="arrival">
+              <label for="arrival-time"> Arrival Time :</label>
+              <input #arrivaltime type="text"  />
+            </div>
+  
+            <div class="burst">
+              <label for="burst-time">Burst Time :</label>
+              <input  type="text" #bursttime />
+            </div>
+          </div>
+          <div class="add"><button class="buon" (click)="add(arrivaltime.value,bursttime.value)">Add</button></div>
+        </div>
+  
+        <div class="table">
+          <table mat-table>
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>AT</th>
+                <th>BT</th>
+                <th>ST</th>
+                <th>CT</th>
+                <th>RT</th>
+                <th>WT</th>
+                <th>TAT</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let arr of table">
+                <td>{{ arr.name }}</td>
+                <td>{{ arr.arrival }}</td>
+                <td>{{ arr.burst }}</td>
+                <td>{{ arr.start }}</td>
+                <td>{{ arr.compilation }}</td>
+                <td>{{ arr.rt }}</td>
+                <td>{{ arr.waiting }}</td>
+                <td>{{ arr.turnaround }}</td>
+                <td >
+                  <button mat-icon-button (click)="del(arr.name)" style="color:red">
+                    X
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  

@@ -1,0 +1,166 @@
+<nav>
+    <div class="menu">
+      <div class="logo">
+        <a href="#">Banker's Algorithm</a>
+      </div>
+      <ul>
+        <li><a href="first.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#">Feedback</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div>
+    <p
+      style="
+        background-color: #36304a;
+        position: absolute;
+        left: 18.1%;
+        top: 13%;
+        margin: 30px;
+        padding-left: 135px;
+        padding-right: 135px;
+        padding-top: 15px;
+        padding-bottom: 45px;
+      "
+    >
+      <b
+        ><input
+          style="width: 150px; position: absolute; top: 61%; left: 28%"
+          placeholder="A,B,C"
+          #alloc
+        />Allocation</b
+      >
+    </p>
+    <p
+      style="
+        background-color: #36304a;
+        position: absolute;
+        left: 40.1%;
+        top: 13%;
+        margin: 30px;
+        padding-left: 162px;
+        padding-right: 162px;
+        padding-top: 15px;
+        padding-bottom: 45px;
+      "
+    >
+      <b
+        ><input
+          style="width: 150px; position: absolute; top: 61%; left: 30%"
+          placeholder="A,B,C"
+          #max
+        />Max</b
+      >
+    </p>
+    <p
+      style="
+        background-color: #36304a;
+        position: absolute;
+        left: 63.1%;
+        top: 13%;
+        margin: 30px;
+        padding-left: 139px;
+        padding-right: 139px;
+        padding-top: 15px;
+        padding-bottom: 45px;
+      "
+    >
+      <b
+        ><input
+          style="width: 150px; position: absolute; top: 61%; left: 29%"
+          placeholder="A,B,C"
+          #avail
+        />Available</b
+      >
+    </p>
+  </div>
+  <script src="extra1.js"></script>
+  <div style="margin-top: 10%" class="mainTable" style="margin: 10% 20%">
+    <table
+      class="container"
+      id="myTable"
+      style="
+        font-size: 0.8em;
+        position: absolute;
+        left: 10%;
+        top: 24.1%;
+        margin: 30px;
+      "
+    >
+      <tr>
+        <th style="width: 123px">No.</th>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+      </tr>
+  
+      <!-- <tr style="background: none; position: absolute; top: 0%; width: 0%">
+        <th style="border: 0px; background: none"></th>
+        <td style="border: 0px"></td>
+        <td style="border: 0px"></td>
+        <td style="border: 0px"></td>
+        <td style="border: 0px"></td>
+        <td style="border: 0px"></td>
+        <td style="border: 0px"></td>
+        <td style="border: 0px"></td>
+        <td style="border: 0px"></td>
+        <td style="border: 0px; margin: 0; padding: 0"></td> -->
+      <!-- </tr> -->
+      <tbody>
+        <tr *ngFor="let arr of table">
+          <td>{{ arr.name }}</td>
+          <td>{{ arr.allocA }}</td>
+          <td>{{ arr.allocB }}</td>
+          <td>{{ arr.allocC }}</td>
+          <td>{{ arr.maxA }}</td>
+          <td>{{ arr.maxB }}</td>
+          <td>{{ arr.maxC }}</td>
+          <td>{{ arr.avaA }}</td>
+          <td>{{ arr.avaB }}</td>
+          <td>{{ arr.avaC }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="controlPanel">
+    <button
+      (click)="removeRow()"
+      style="position: absolute; margin-bottom: 10px; font-family: Ubuntu"
+    >
+      <b>- Del</b>
+    </button>
+    <button
+      (click)="addRow(max.value, alloc.value, avail.value)"
+      style="font-family: Ubuntu"
+    >
+      <b>+ Add</b>
+    </button>
+  </div>
+  <div class="submit" style="position: relative">
+    <button
+      (click)="submitValue()"
+      style="
+        position: absolute;
+        left: 12.1%;
+        margin-top: -144px;
+        font-family: Ubuntu;
+        top: 0%;
+      "
+    >
+      <b>Simulate</b>
+    </button>
+    <div id="printProcess">
+      <p style="position: absolute; top: 27%; left: 2%; font-weight:500">
+        Answer: {{ string }}
+      </p>
+    </div>
+  </div>
+  

@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  position: relative;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 1.42em;
+  background: linear-gradient(rgb(39, 11, 62), rgba(88, 34, 128, 0.968));
+  color: #fff;
+  height: 100%;
+  
+}
