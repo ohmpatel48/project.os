@@ -13,6 +13,7 @@ import { BankerComponent } from './pages/banker/banker.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DocComponent } from './pages/doc/doc.component';
 import { DeveloperComponent } from './pages/developer/developer.component';
+import { TryComponent } from './pages/try/try.component';
 
 
 
@@ -27,7 +28,8 @@ import { DeveloperComponent } from './pages/developer/developer.component';
     BankerComponent,
     NavbarComponent,
     DocComponent,
-    DeveloperComponent,  
+    DeveloperComponent,
+    TryComponent,  
   ],
   imports: [
     BrowserModule,

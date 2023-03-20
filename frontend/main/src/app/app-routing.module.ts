@@ -6,6 +6,7 @@ import { ScanComponent } from "./pages/scan/scan.component";
 import {BankerComponent} from "./pages/banker/banker.component";
 import { DocComponent } from './pages/doc/doc.component';
 import { DeveloperComponent } from './pages/developer/developer.component';
+import { TryComponent } from './pages/try/try.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,11 @@ const routes: Routes = [
   {
     path: 'developer',
     component: DeveloperComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'try',
+    component: TryComponent,
     pathMatch: 'full',
   }
 
