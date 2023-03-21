@@ -1,4 +1,4 @@
-package con.db.storage;
+package com.os.prop.storage;
 
 import jakarta.persistence.*;
 

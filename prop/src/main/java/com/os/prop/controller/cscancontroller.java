@@ -1,8 +1,8 @@
-package con.db.controller;
+package com.os.prop.controller;
 
-import con.db.reppo.cscanrepo;
-import con.db.storage.cscan;
-import con.db.storage.cscaner;
+import com.os.prop.reppo.cscanrepo;
+import com.os.prop.storage.cscan;
+import com.os.prop.storage.cscaner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

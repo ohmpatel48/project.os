@@ -1,7 +1,7 @@
-package con.db.controller;
+package com.os.prop.controller;
 
-import con.db.reppo.rrinterface;
-import con.db.storage.roundrobin;
+import com.os.prop.reppo.rrinterface;
+import com.os.prop.storage.roundrobin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;

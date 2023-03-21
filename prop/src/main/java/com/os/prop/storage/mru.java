@@ -3,24 +3,14 @@ package com.os.prop.storage;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="cscan")
-public class cscan {
-
+@Table(name = "mru")
+public class mru {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private  long id ;
     private int value;
     private int run;
-    private int head;
-    private String flow;
-
-    public String getFlow() {
-        return flow;
-    }
-
-    public void setFlow(String flow) {
-        this.flow = flow;
-    }
+    private int frames;
 
     public long getId() {
         return id;
@@ -46,11 +36,11 @@ public class cscan {
         this.run = run;
     }
 
-    public int getHead() {
-        return head;
+    public int getFrames() {
+        return frames;
     }
 
-    public void setHead(int head) {
-        this.head = head;
+    public void setFrames(int frames) {
+        this.frames = frames;
     }
 }

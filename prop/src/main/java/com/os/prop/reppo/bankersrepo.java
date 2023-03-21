@@ -1,6 +1,6 @@
-package con.db.reppo;
+package com.os.prop.reppo;
 
-import con.db.storage.bankers;
+import com.os.prop.storage.bankers;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

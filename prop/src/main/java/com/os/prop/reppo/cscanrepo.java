@@ -1,6 +1,6 @@
-package con.db.reppo;
+package com.os.prop.reppo;
 
-import con.db.storage.cscan;
+import com.os.prop.storage.cscan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

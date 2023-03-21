@@ -1,6 +1,6 @@
-package con.db.reppo;
+package com.os.prop.reppo;
 
-import con.db.storage.roundrobin;
+import com.os.prop.storage.roundrobin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

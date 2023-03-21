@@ -1,7 +1,7 @@
-package con.db.controller;
+package com.os.prop.controller;
 
-import con.db.reppo.bankersrepo;
-import con.db.storage.bankers;
+import com.os.prop.reppo.bankersrepo;
+import com.os.prop.storage.bankers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

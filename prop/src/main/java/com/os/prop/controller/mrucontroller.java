@@ -1,8 +1,8 @@
 package com.os.prop.controller;
 
-import com.os.prop.reppo.scanrepo;
-import com.os.prop.storage.scan;
-import com.os.prop.storage.scaner;
+import com.os.prop.reppo.mrurepo;
+import com.os.prop.storage.mru;
+import com.os.prop.storage.mruer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,19 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/scan")
+@RequestMapping("/mru")
 @CrossOrigin("*")
-public class scancontroller {
+public class mrucontroller {
     @Autowired
-    private scanrepo u;
+    private mrurepo u;
 
 
-    private List<scan> store;
+    private List<mru> store;
     @PostMapping("/")
-    public List<scan> enterdata(@RequestBody scaner data) {
+    public List<mru> enterdata(@RequestBody mruer data) {
 
-        List<scan> testing = new ArrayList<scan>();
-        store= new ArrayList<scan>();
+        List<mru> testing = new ArrayList<mru>();
+        store= new ArrayList<mru>();
         int j = 1;
 
         boolean checking = true;
@@ -30,11 +30,10 @@ public class scancontroller {
             testing = this.u.findByrun(j);
             if (testing.size() == 0) {
                 for (int i = 0; i < data.getArray().length; i++) {
-                    scan s = new scan();
-                    s.setHead(data.getHead());
+                    mru s = new mru();
+                    s.setFrames(data.getFrames());
                     int[] a = data.getArray();
                     s.setValue(a[i]);
-                    s.setFlow(data.getFlow());
                     s.setRun(j);
                     store.add(s);
                     this.u.save(s);
@@ -49,5 +48,4 @@ public class scancontroller {
 
         return store;
     }
-
 }
