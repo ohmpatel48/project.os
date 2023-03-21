@@ -7,6 +7,7 @@ import {BankerComponent} from "./pages/banker/banker.component";
 import { DocComponent } from './pages/doc/doc.component';
 import { DeveloperComponent } from './pages/developer/developer.component';
 import { TryComponent } from './pages/try/try.component';
+import { MruComponent } from './pages/mru/mru.component';
 
 
 const routes: Routes = [
@@ -41,11 +42,10 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'try',
-    component: TryComponent,
+    path: 'mru',
+    component: MruComponent,
     pathMatch: 'full',
-  }
-
+  },
 ];
 
 @NgModule({

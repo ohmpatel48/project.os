@@ -14,6 +14,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DocComponent } from './pages/doc/doc.component';
 import { DeveloperComponent } from './pages/developer/developer.component';
 import { TryComponent } from './pages/try/try.component';
+import { MruComponent } from './pages/mru/mru.component';
 
 
 
@@ -29,7 +30,8 @@ import { TryComponent } from './pages/try/try.component';
     NavbarComponent,
     DocComponent,
     DeveloperComponent,
-    TryComponent,  
+    TryComponent,
+    MruComponent,  
   ],
   imports: [
     BrowserModule,
