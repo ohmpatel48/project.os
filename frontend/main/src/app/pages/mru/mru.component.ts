@@ -15,22 +15,21 @@ export class MruComponent {
   pages: any=[];
   summary:any;
   output:any;
-  tf:any;
-  tp:any;
-  sp:any;
+  tf:any;   //total frames
+  tp:any;//total pages
+  sp:any; //sequence of pages
   observation:any;
-  tr:any;
-  nh:any;
-  nf:any;
-  hr:any;
-  fr:any;
+  tr:any;//total replacement
+  nh:any; //no. of hits
+  nf:any;//no. of frames
+  hr:any;//hit ratio
+  fr:any;//fault ratio
   savedata:any;
   keys:any = [];
   values:any = [];
   hitcount = 0;
   misscount = 0;
-  getData(){
-    
+  getData(){  
     this.tableData.forEach((element:any) => {
       this.values.push(Object.values(element));
       this.keys= Object.keys(element);
@@ -43,6 +42,7 @@ export class MruComponent {
     let n =this.pages.length;
     this.savedata = {frames:frames,array:this.pages};  
     this.setdata.savemru(this.savedata).subscribe((data)=>{console.log(data)},(error)=>console.log(error));
+    //maintainng the arrays for "hit" and "Replace columnns"
     let hit =[];
     let inst =[];
     let v =[];
@@ -53,29 +53,47 @@ export class MruComponent {
       //     inst[index][j]="-";   
       // }
     }
+        //maintainnig an array for table
+
     let mentian = [];
     for (var i = 0; i < n; i++) {
       let temp3=[];
+            //will get the index of current pages int the inst array
+
       var idx = inst.indexOf(this.pages[i]);
+      //will go in if , if there is a miss
       if (idx == -1) {
+          //will go in if , if there is a empty space for a page
+
           if (inst.length < frames) {
               // inst.push(pages[i]);
               inst.unshift(this.pages[i]);
           }
+               //will go in else , if a page replacement is required
+
           else {             
               v[i] = inst[0];
               inst.splice(0,1);
               inst.unshift(this.pages[i]);
           }
+             //maintaining the number of miss 
+
           this.misscount++;
       }
       else {
-         
+                   //will swap the page and keep the MRU page at 0th index
+
           inst.splice(inst.indexOf(this.pages[i]), 1);
           inst.unshift(this.pages[i]);
+                    //update the "hit" column 
+
           hit[i] = "Yes";
+                    //maintaining the number of hits
+
           this.hitcount++;
       }
+            //updating the temp array if the size of temp3 != frames
+
       for (let k = 0; k < frames; k++) {
         if (inst[k] == undefined) {
           temp3[k] = "-";
@@ -83,9 +101,12 @@ export class MruComponent {
           temp3[k] = inst[k];
         }
       }
-      
+            //pushing the temp3 array into the mantian array
+
       mentian.push(temp3);   
   }
+    //After computing all the hits and misses, we are storing all the values into a table
+
   for (let index = 0; index < this.pages.length; index++) {
     let temp:any = {};
     let tempstring = "P"+ count;
@@ -114,15 +135,4 @@ export class MruComponent {
 
 
   }
-  getCellColor(value: string): string {
-    if ("No" == value) {
-      return 'red';
-    } else if ("Yes" == value) {
-      return 'green';
-    } else {
-      return 'none';
-    }
-  }
-  
-
 }

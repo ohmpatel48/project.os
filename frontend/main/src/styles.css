@@ -12,10 +12,11 @@ body {
   font-weight: 300;
   font-size: 20px;
   line-height: 1.42em;
-  background: linear-gradient(rgb(39, 11, 62), rgba(88, 34, 128, 0.968));
+  background: linear-gradient( to bottom,rgb(39, 11, 62), rgba(88, 34, 128, 0.968));
   color: #fff;
   height: 100%;
   background-repeat: no-repeat;
-  background-size: 100%;
+  /* background-size: 100%; */
+  background-attachment: fixed;
   
 }
