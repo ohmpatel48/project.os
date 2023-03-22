@@ -15,5 +15,7 @@ body {
   background: linear-gradient(rgb(39, 11, 62), rgba(88, 34, 128, 0.968));
   color: #fff;
   height: 100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
   
 }

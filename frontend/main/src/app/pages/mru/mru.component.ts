@@ -12,6 +12,17 @@ export class MruComponent {
   tableData:any = [];
   frames:any;
   pages: any=[];
+  summary:any;
+  output:any;
+  tf:any;
+  tp:any;
+  sp:any;
+  observation:any;
+  tr:any;
+  nh:any;
+  nf:any;
+  hr:any;
+  fr:any;
 
   keys:any = [];
   values:any = [];
@@ -77,16 +88,39 @@ export class MruComponent {
     let temp:any = {};
     let tempstring = "P"+ count;
     count++;
-    temp[`name`] = tempstring;
-    temp[`page`] = this.pages[index];
+    temp[`Name`] = tempstring;
+    temp[`Page`] = this.pages[index];
     for (let i = 0; i < frames; i++) {
-      temp[`frame${i+1}`] = mentian[index][i];
+      temp[`Frame${i+1}`] = mentian[index][i];
     }
     temp[`Hit`] = hit[index]; 
     temp[`Replaced`] = v[index]; 
     this.tableData.push(temp);
   }
   this.getData();
+  this.summary="Summary:-";
+  this.output = "Output";
+  this.tf = "Total Frames"+": "+this.frames;
+  this.tp = "Total Pages"+": "+this.pages.length;
+  this.sp = "Total Page Faults"+": "+this.pages;
+  this.observation = "Observation:-";
+  this.tr = "Total Reference"+": "+this.pages.length;
+  this.nh = "Number of Hits"+": "+this.hitcount;
+  this.nf = "Number of Faults"+": "+this.misscount;
+  this.hr = "Hit Ratio"+": "+(this.hitcount/this.pages.length)*100+"%";
+  this.fr = "Fault Ratio"+": "+(this.misscount/this.pages.length)*100+"%";
+
+
   }
+  getCellColor(value: string): string {
+    if ("No" == value) {
+      return 'red';
+    } else if ("Yes" == value) {
+      return 'green';
+    } else {
+      return 'none';
+    }
+  }
+  
 
 }
