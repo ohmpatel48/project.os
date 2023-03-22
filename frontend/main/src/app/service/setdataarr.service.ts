@@ -27,5 +27,9 @@ export class SetdatarrService {
     console.log(table);
     return this.http.post(`${baseurl}/banker/`,table);
   }
+  public savemru(table:any){
+    console.log(table);
+    return this.http.post(`${baseurl}/mru/`,table);
+  }
   
 }

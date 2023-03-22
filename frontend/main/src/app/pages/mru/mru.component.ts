@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SetdatarrService } from "src/app/service/setdataarr.service";
 
 @Component({
   selector: 'app-mru',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class MruComponent {
   
-  constructor() { }
+  constructor(private setdata : SetdatarrService) { }
   
   tableData:any = [];
   frames:any;
@@ -23,7 +24,7 @@ export class MruComponent {
   nf:any;
   hr:any;
   fr:any;
-
+  savedata:any;
   keys:any = [];
   values:any = [];
   hitcount = 0;
@@ -40,7 +41,8 @@ export class MruComponent {
     this.pages = istring.split(" ");
     let count = 0;
     let n =this.pages.length;
-    
+    this.savedata = {frames:frames,array:this.pages};  
+    this.setdata.savemru(this.savedata).subscribe((data)=>{console.log(data)},(error)=>console.log(error));
     let hit =[];
     let inst =[];
     let v =[];
