@@ -41,6 +41,7 @@ export class RrsimulComponent {
 
    start(timeq: any): void {
     
+    
       this.setdata.saverr(this.table).subscribe(
         (data) => {
         console.log(data);
