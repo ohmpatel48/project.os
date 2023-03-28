@@ -7,7 +7,7 @@ import { SetdatarrService } from 'src/app/service/setdataarr.service';
   styleUrls: ['./banker.component.css'],
 })
 export class BankerComponent {
-  constructor(private setdata: SetdatarrService) {}
+  constructor(private setdata: SetdatarrService) { }
   table: any = [];
   max: any = [];
   alloc: any = [];
@@ -46,140 +46,136 @@ export class BankerComponent {
     this.table.splice(this.table.length - 1, 1);
   }
   submitValue(): void {
-    let alock: any = [];
-    // take values of alloc
+    let allocatedA = [];
+    let allocatedB = [];
+    let allocatedC = [];
+    let maximumA = [];
+    let maximumB = [];
+    let maximumC = [];
+    let availableResorces = [];
+    let n = this.table.length;
 
     for (let i = 0; i < this.table.length; i++) {
-      let temp23: any = [];
-
-      temp23.push(this.table[i].allocA);
-      temp23.push(this.table[i].allocB);
-      temp23.push(this.table[i].allocC);
-      alock.push(temp23);
-    }
-    let max = [];
-
-    // take values of max.
-    for (let i = 0; i < this.table.length; i++) {
-      let temp45 = [];
-
-      temp45.push(this.table[i].maxA);
-      temp45.push(this.table[i].maxB);
-      temp45.push(this.table[i].maxC);
-      max.push(temp45);
+      allocatedA.push(parseInt(this.table[i].allocA));
+      allocatedB.push(parseInt(this.table[i].allocB));
+      allocatedC.push(parseInt(this.table[i].allocC));
+      maximumA.push(parseInt(this.table[i].maxA));
+      maximumB.push(parseInt(this.table[i].maxB));
+      maximumC.push(parseInt(this.table[i].maxC));
     }
 
-    let n: any = this.table.length;
-    const m = 3;
-    let f = [];
-    for (let i: any = 0; i < n; i++) f[i] = 0;
-    let ans = [];
-    for (let i: any = 0; i < n; i++) ans[i] = -1;
-    let ind = 0;
+    let allocatedALL = new Array(n);
+    let maximumALL = new Array(n);
 
-    // fill the need array.
-    let need: any = [];
+
+
     for (let i = 0; i < n; i++) {
-      need[i] = [];
-      for (let j = 0; j < m; j++) {
-        need[i][j] = max[i][j] - alock[i][j];
+      allocatedALL[i] = new Array(3);
+      maximumALL[i] = new Array(3);
+
+      allocatedALL[i][0] = allocatedA[i]
+      allocatedALL[i][1] = allocatedB[i];
+      allocatedALL[i][2] = allocatedC[i];
+      maximumALL[i][0] = maximumA[i];
+      maximumALL[i][1] = maximumB[i];
+      maximumALL[i][2] = maximumC[i];
+    }
+
+
+    availableResorces.push(parseInt(this.table[0].avaA));
+    availableResorces.push(parseInt(this.table[0].avaB));
+    availableResorces.push(parseInt(this.table[0].avaC));
+
+
+    let deadlock = false;
+
+    let sumA = 0;
+    let sumB = 0;
+    let sumC = 0;
+
+
+    for (let i = 0; i < allocatedA.length; i++) {
+      sumA = sumA + allocatedA[i];
+      sumB = sumB + allocatedB[i];
+      sumC = sumC + allocatedC[i];
+    }
+
+    sumA = sumA + availableResorces[0];
+    sumB = sumB + availableResorces[1];
+    sumC = sumC + availableResorces[2];
+
+    if (sumA > Math.max.apply(null, maximumA) || sumB > Math.max.apply(null, maximumB) || sumC > Math.max.apply(null, maximumC)) {
+      deadlock = true;
+    }
+
+    // console.log(maximumALL[0][0])
+    let need = new Array(n);
+    for (let i = 0; i < n; i++) {
+      // let temp :any= [];
+      need[i] = new Array(3);
+      for (let j = 0; j < 3; j++) {
+
+        need[i][j] = maximumALL[i][j] - allocatedALL[i][j];
       }
     }
+    console.log(need);
 
-    // fill the avail array
-    let avail = [this.table.avaA, this.table.avaB, this.table.avaC];
-    let flag = true;
-    var sumallocA = 0;
-    var sumallocB = 0;
-    var sumallocC = 0;
-    console.log(this.table[0].allocA);
-    for (let i = 0; i < this.table.length; i++) {
-      sumallocA = sumallocA + parseInt(this.table[i].allocA);
-      sumallocB = sumallocB +parseInt(this.table[i].allocB);
-      sumallocC = sumallocC+ parseInt(this.table[i].allocC); 
+
+    if (!deadlock) {
+      this.finalans.push("Deadlock");
     }
-    sumallocA = parseInt(this.table.avaA) + sumallocA;
-    sumallocB = parseInt(this.table.avaB) + sumallocB;
-    sumallocC = parseInt(this.table.avaC) + sumallocC;
-    console.log(sumallocA);
-    console.log(sumallocB);
-    console.log(sumallocC);
-    
-    let maxA = [];
-    let maxB = [];
-    let maxC = [];
-    for (let index = 0; index < max.length; index++) {
-      maxA.push(max[index][0]);
-      maxB.push(max[index][1]);
-      maxC.push(max[index][2]);
-    }
-    console.log(maxA);
-    console.log(maxB);
-    console.log(maxC);
-    const maxofmaxA = Math.max.apply(null, maxA);
-    const maxofmaxB = Math.max.apply(null, maxB);
-    const maxofmaxC = Math.max.apply(null, maxC);
+    else {
+      // this.finalans.push("not deadlock");
+      console.log("else");
+      let flag = [];
+      let ans = [];
+      for (let i = 0; i < n; i++) {
+        flag[i] = 0;
+      }
+
+      for (let i = 0; ans.length != n; i++) {
 
 
-    if (
-      sumallocA > maxofmaxA ||
-      sumallocB > maxofmaxB ||
-      sumallocC > maxofmaxC
-    ) {
-      flag = false;
-      this.finalans = 'deadlock';
-      return;
-    }
-    let y = 0;
-    if (flag == true) {
-      for (let k = 0; k < n; k++) {
-        for (let i = 0; i < n; i++) {
-          if (f[i] == 0) {
-            let flag = false;
-            for (let j = 0; j < m; j++) {
-              if (need[i][j] > avail[j]) {
-                flag = true;
+        for (let j = 0; j < n; j++) {
 
+          if (flag[j] == 0) {
+            let temp = false;
+            for (let k = 0; k < 3; k++) {
+              if (need[j][k] > availableResorces[k]) {
+                temp = true;
                 break;
               }
             }
 
-            if (flag == false) {
-              ans[ind++] = i;
-              for (y = 0; y < m; y++) avail[y] += alock[i][y];
-              f[i] = 1;
+            if (!temp) {
+              for (let m = 0; m < n; m++) {
+                availableResorces[m] += allocatedALL[j][m]
+              }
+
+              flag[j] = 1;
+              ans.push(j);
             }
           }
-        }
-      }
-      for (let index = 0; index < ans.length; index++) {
-        if (ans[index] < 0) {
-          this.finalans = [];
-          this.finalans.push('deadLock');
-          return;
-        } else {
-          let b = 'P' + ans[index];
-          this.finalans.push(b);
-        }
-      }
-    }
-    // function addElement(parentId, elementTag) {
-    // 	// Adds an element to the document
-    // 	var p = document.createElement(parentId);
-    // 	var newElement = document.createTextNode(elementTag);
-    // 	//newElement.setAttribute('id', elementId);
-    // 	//newElement.innerHTML = html;
-    // 	p.appendChild(newElement);
-    // 	document.body.appendChild(p);
-    // }
 
-    // for (i = 0; i < n; i++) console.log(ans[i]);
-    // var mastList = [];
-    // var mastString = "";
+        }
+      }
+
+      let ansstr;
+      for (let i = 0; i < n; i++) {
+        let str = ' P' + ans[i];
+        // this.finalans.push(str);
+        // ansstr = ansstr+str;
+        this.finalans.push(str);
+      }
+
+    }
 
     this.string = this.finalans.join(' ');
+    this.finalans = [];
     this.setdata.savebanker(this.table).subscribe((data) => {
       console.log(data);
+
+
     });
   }
 }
