@@ -1,3 +1,4 @@
+
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { SetdatarrService } from 'src/app/service/setdataarr.service';
 import { Chart, registerables } from 'chart.js';
@@ -9,6 +10,7 @@ Chart.register(...registerables);
   templateUrl: './scanpg2.component.html',
   styleUrls: ['./scanpg2.component.css'],
 })
+
 export class Scanpg2Component {
   constructor() { }
   @ViewChild('mychart') canvasRef: any;
@@ -21,6 +23,7 @@ export class Scanpg2Component {
   obj2: any;
   obj1: any;
   flow: any = [];
+<<<<<<< HEAD
   cscan(h_pos: any, ftrack: any): void {
     
     
@@ -28,9 +31,33 @@ export class Scanpg2Component {
     document.getElementById('top')!.style.display = 'none';
     document.getElementById('bottom')!.style.display = 'block';
 
-    // console.log(ftrack);
-    var arr = ftrack.split(',');
+=======
 
+  // C-Scan
+    cscan(h_pos: any, ftrack: any): void 
+    {
+    
+          document.getElementById('cs')!.style.display = 'flex';
+          document.getElementById('top')!.style.display = 'none';
+          document.getElementById('bottom')!.style.display = 'block';
+
+        if (h_pos < 0) 
+          {
+            console.log('enter positive values');
+            alert('Please Enter positive value only!');
+          }
+
+        if (h_pos == '') 
+          {
+            console.log('Input Require');
+            alert('Please Input Track Data');
+          }
+
+>>>>>>> f8d4046de546ffc92ce6af86ddcbfa4e28dccc61
+    // console.log(ftrack);
+        var arr = ftrack.split(',');
+
+<<<<<<< HEAD
     
 
     let seek_count = 0;
@@ -39,80 +66,117 @@ export class Scanpg2Component {
     let left = [],
       right = [];
     let seek_sequence = [];
+=======
+    // declarations 
+        let seek_count = 0;
+        let i;
+        let distance, cur_track;
+        let left = [],
+        right = [];
+        let seek_sequence = [];
+>>>>>>> f8d4046de546ffc92ce6af86ddcbfa4e28dccc61
 
-    let disk_size = 200;
-    let size = arr.length;
-    let btnradio = this.selected;
-    this.obj1 = { head: h_pos, array: arr, flow: btnradio };
-    // this.setdata.savecscan(this.obj1).subscribe(
-    //   (data) => {
-    //   console.log(data);
-    //   },
-    //   (error) => console.log(error)
-    // );
+        let disk_size = 200;
+        let size = arr.length;
+        let btnradio = this.selected;
+        this.obj1 = { head: h_pos, array: arr, flow: btnradio };
 
-    seek_sequence.push(h_pos);
+        // this.setdata.savecscan(this.obj1).subscribe(
+        //   (data) => {
+        //   console.log(data);
+        //   },
+        //   (error) => console.log(error)
+        // );
 
-    left.push(0);
-    right.push(disk_size - 1);
+        seek_sequence.push(h_pos);
+        left.push(0);
+        right.push(disk_size - 1);
 
+<<<<<<< HEAD
     for (let i = 0; i < size; i++) {
       if (arr[i] < h_pos) left.push(arr[i]);
       if (arr[i] > h_pos) right.push(arr[i]);
     }
     
+=======
+          for (let i = 0; i < size; i++) 
+              {
+                  if (arr[i] < h_pos) left.push(arr[i]);
+                  if (arr[i] > h_pos) right.push(arr[i]);
+              }
+>>>>>>> f8d4046de546ffc92ce6af86ddcbfa4e28dccc61
 
-    // sorting left and right vectors
-    left.sort(function (a, b) {
-      return a - b;
-    });
-    right.sort(function (a, b) {
-      return a - b;
-    });
+      // sorting left and right vectors
+          left.sort
+          (function (a, b) 
+            {
+              return a - b;
+            }
+          );
 
-    // first service the requests
-    // on the right side of the
-    // head.
-    console.log(btnradio);
-    if (btnradio == 'l') {
-      for (let i = 0; i < right.length; i++) {
-        seek_sequence.push(right[i]);
-      }
+          right.sort
+          (function (a, b) 
+            {
+              return a - b;
+            }
+          );
 
-      for (let i = 0; i < left.length; i++) {
-        seek_sequence.push(left[i]);
-      }
-    } else if (btnradio == 'r') {
-      for (let i = left.length - 1; i >= 0; i--) {
-        seek_sequence.push(left[i]);
-      }
+      // first service the requests on the right side of the head.
+          console.log(btnradio);
+          if (btnradio == 'l') 
+          {
+            for (let i = 0; i < right.length; i++) 
+              {
+                  seek_sequence.push(right[i]);
+              }
 
-      for (let i = right.length - 1; i >= 0; i--) {
-        seek_sequence.push(right[i]);
-      }
-    }
+            for (let i = 0; i < left.length; i++) 
+              {
+                  seek_sequence.push(left[i]);
+              }
+          } 
+                else if 
+                  (btnradio == 'r') 
+                    {
+                        for (let i = left.length - 1; i >= 0; i--) 
+                            {
+                                seek_sequence.push(left[i]);
+                            }
 
-    if (seek_sequence[seek_sequence.length - 1] == 0 || seek_sequence[seek_sequence.length - 1] == disk_size - 1) {
-      seek_sequence.splice(seek_sequence.length - 1, 1);
-      if (seek_sequence[seek_sequence.length - 1] == 0 || seek_sequence[seek_sequence.length - 1] == disk_size - 1) {
-        seek_sequence.splice(seek_sequence.length - 1, 1);
-      }
-    }
+                        for (let i = right.length - 1; i >= 0; i--) 
+                        {
+                                seek_sequence.push(right[i]);
+                        }
+                    }
 
-    var result = '';
-    for (let i = 0; i < seek_sequence.length - 1; i++) {
-      if (seek_sequence[i] < 0) {
-        alert('Enter positive value only!');
-        break;
-      }
-      result += seek_sequence[i] + ',';
-    }
-    result = result + seek_sequence[seek_sequence.length - 1];
+        if (seek_sequence[seek_sequence.length - 1] == 0 || seek_sequence[seek_sequence.length - 1] == disk_size - 1) 
+            {
+                    seek_sequence.splice(seek_sequence.length - 1, 1);
+          if (seek_sequence[seek_sequence.length - 1] == 0 || seek_sequence[seek_sequence.length - 1] == disk_size - 1) 
+                {
+                    seek_sequence.splice(seek_sequence.length - 1, 1);
+                }
+            } 
 
-    var seek_time = 0;
-    for (let i = 0; i < seek_sequence.length - 1; i++) {
-      seek_time += Math.abs(seek_sequence[i] - seek_sequence[i + 1]);
-    }
+      var result = '';
+        for (let i = 0; i < seek_sequence.length - 1; i++) 
+          {
+            if (seek_sequence[i] < 0) 
+              {
+                alert('Enter positive value only!');
+                break;
+              
+              }
+            result += seek_sequence[i] + ',';
+          }
+        result = result + seek_sequence[seek_sequence.length - 1];
+
+      var seek_time = 0;
+        for (let i = 0; i < seek_sequence.length - 1; i++) 
+          {
+            seek_time += Math.abs(seek_sequence[i] - seek_sequence[i + 1]);
+          }
+
     // this.seck = seek_sequence;
     console.log(result);
     // console.log(seek_count);
@@ -120,22 +184,32 @@ export class Scanpg2Component {
     console.log(seek_time);
     this.finalans1 = seek_time;
     this.finalarr1 = seek_sequence;
-    
-
     this.showGraphCS();
+
   }
 
-  scan(h_pos: any, ftrack: any): void {
+// Scan 
+  scan(h_pos: any, ftrack: any): void 
+  {
 
-    this.flow.push(1);
-    document.getElementById('s')!.style.display = 'flex';
-    document.getElementById('top')!.style.display = 'none';
-    document.getElementById('bottom')!.style.display = 'block';
+      this.flow.push(1);
+      document.getElementById('s')!.style.display = 'flex';
+      document.getElementById('top')!.style.display = 'none';
+      document.getElementById('bottom')!.style.display = 'block';
 
+<<<<<<< HEAD
+=======
+        if (h_pos < 0) 
+            {
+              console.log('enter positive values');
+              alert('Please Enter positive value only!');
+            }
+>>>>>>> f8d4046de546ffc92ce6af86ddcbfa4e28dccc61
 
     // console.log(ftrack);
-    var arr = ftrack.split(',');
+        var arr = ftrack.split(',');
 
+<<<<<<< HEAD
     
 
 
@@ -148,8 +222,22 @@ export class Scanpg2Component {
     let disk_size = 200;
     let size = arr.length;
     var btnradio = this.selected;
+=======
+    // declarations
+        let seek_count = 0;
+        let distance, cur_track;
+        let left = [],
+            right = [];
+        let i;
+        let seek_sequence = [];
+        let disk_size = 200;
+        let size = arr.length;
+        var btnradio = this.selected;
+>>>>>>> f8d4046de546ffc92ce6af86ddcbfa4e28dccc61
     
+        this.obj2 = { head: h_pos, array: arr, flow: btnradio };
 
+<<<<<<< HEAD
     this.obj2 = { head: h_pos, array: arr, flow: btnradio };
     // this.savedata.savescan(this.obj2).subscribe(
     //   (data) => {
@@ -157,50 +245,72 @@ export class Scanpg2Component {
     //   },
     //   (error) => console.log(error)
     // );
+=======
+        // this.setdata.savescan(this.obj2).subscribe(
+        //   (data) => {
+        //   console.log(data);
+        //   },
+        //   (error) => console.log(error)
+        // );
+>>>>>>> f8d4046de546ffc92ce6af86ddcbfa4e28dccc61
 
-    seek_sequence.push(h_pos);
+        seek_sequence.push(h_pos);
+        left.push(0);
+        right.push(disk_size - 1);
 
-    left.push(0);
-    right.push(disk_size - 1);
+          for (let i = 0; i < size; i++) 
+            {
+              if (arr[i] < h_pos) left.push(arr[i]);
+              if (arr[i] > h_pos) right.push(arr[i]);
+            }
 
+<<<<<<< HEAD
     for (let i = 0; i < size; i++) {
       if (arr[i] < h_pos) left.push(arr[i]);
       if (arr[i] > h_pos) right.push(arr[i]);
     }
     
+=======
+      // sorting left and right vectors
+        left.sort
+        (function (a, b) 
+        {
+          return a - b;
+        });
+        right.sort
+        (function (a, b) 
+        {
+          return a - b;
+        });
+>>>>>>> f8d4046de546ffc92ce6af86ddcbfa4e28dccc61
 
-    // sorting left and right vectors
-    left.sort(function (a, b) {
-      return a - b;
-    });
-    right.sort(function (a, b) {
-      return a - b;
-    });
+      // first service the requests on the right side of the head.
 
-    // first service the requests
-    // on the right side of the
-    // head.
+        let run = 2;
+        while (run-- > 0) 
+            {
+                if (btnradio == 'l') 
+                    {
+              // Time Complexity: O(left.length)
+                        for (let i = left.length - 1; i >= 0; i--) 
+                             {
+                                seek_sequence.push(left[i]);
+                            }
+                            btnradio = 'r';
+                    }
+              // Time Complexity: O(right.length)
+                else if (btnradio == 'r') 
+                    {
+                        for (let i = 0; i < right.length; i++) 
+                              {
+                  // appending current track to seek sequence
+                                seek_sequence.push(right[i]);
+                              }
+                        btnradio = 'l';
+                    }
+              }
 
-    let run = 2;
-    while (run-- > 0) {
-      if (btnradio == 'l') {
-        // Time Complexity: O(left.length)
-        for (let i = left.length - 1; i >= 0; i--) {
-          seek_sequence.push(left[i]);
-        }
-        btnradio = 'r';
-      }
-      // Time Complexity: O(right.length)
-      else if (btnradio == 'r') {
-        for (let i = 0; i < right.length; i++) {
-          // appending current track to seek sequence
-          seek_sequence.push(right[i]);
-        }
-        btnradio = 'l';
-      }
-    }
-
-    if (seek_sequence[seek_sequence.length - 1] == 0 || seek_sequence[seek_sequence.length - 1] == disk_size - 1) {
+      if (seek_sequence[seek_sequence.length - 1] == 0 || seek_sequence[seek_sequence.length - 1] == disk_size - 1) {
       seek_sequence.splice(seek_sequence.length - 1, 1);
       if (seek_sequence[seek_sequence.length - 1] == 0 || seek_sequence[seek_sequence.length - 1] == disk_size - 1) {
         seek_sequence.splice(seek_sequence.length - 1, 1);
@@ -231,6 +341,7 @@ export class Scanpg2Component {
 
     this.showGraphS();
   }
+
   showGraphCS(): void {
 
 
