@@ -91,7 +91,7 @@
         (click)="DelayRedirect()"
         value="submit"
       >
-        Submit
+        SUBMIT
       </button>
     </div>
   </section>
@@ -167,9 +167,9 @@
                       font-weight: 300;
                       font-size: 25px;
                       border: solid 2.5px rgba(255, 255, 255, 0.1);
-                      background-color: #9551a3;
                       border-color: black;
                     "
+                    [ngStyle]="{'background-color': ito.color }"
                   >
                     {{
                       ito.pid

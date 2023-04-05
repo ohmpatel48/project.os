@@ -67,7 +67,36 @@ export class Marupg2Component {
 
 
     this.frames = frames;
-    this.pages = istring.split(" ");
+
+    if (parseInt(frames) < 1) {
+      console.log('enter positive values');
+      alert('Please Enter positive value only!');
+      window.location.reload();
+      return;
+    }
+    if (parseInt(frames) == null) {
+      console.log('Input Require');
+      alert('Please Input Track Data');
+      window.location.reload();
+      return;
+    }
+    this.pages = istring.split(",");
+    var arr = [] ;
+    arr= istring.split(',');
+    for (let index = 0; index < arr.length; index++) {
+      if (Number.isNaN(parseInt(arr[index]))) {
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+    }
+    for (let index = 0; index < arr.length; index++) {
+      if (!Number.isInteger(parseInt(arr[index]))) {
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+    }
     let count = 0;
     let n = this.pages.length;
 
@@ -143,39 +172,16 @@ export class Marupg2Component {
 
 
   }
-  getCellColor(value: string): string {
+  getcolor(value: string): any {
     if ("No" == value) {
-      return 'red';
+      return {'background-color': '#ff6961'};
     } else if ("Yes" == value) {
-      return 'green';
+      return {'background-color': '#77dd77'};
     } else {
-      return 'none';
+      return {'background-color': 'none'};
     }
   }
-  getLoading() {
-    // Add event listener here
-    
-    const button = document.getElementById('fullscreen-button');
-
-    button?.addEventListener('click', function handleClick(event) {
-      const loadingElement = document.createElement('div');
-      loadingElement.innerHTML = '<div id="ani" style="position: absolute;top: 0%;width: 100%;background: black;opacity: 0.6;z-index: 100;height: 100%;"class="d-flex justify-content-center"><div style="position:absolute;top:50%;height:85px;width:85px" class="spinner-border" role="status"><span class="sr-only"></span></div></div>';
-      loadingElement.id = 'loading-animation';
-      // loadingElement.querySelector('.loading-spinner')?.classList.add('loading-spinner-style');
-      document.body.appendChild(loadingElement);
-    });
   
-  }
-  DelayRedirect() {
-    let flag = 0;
-    setInterval(function () {
-      if (flag == 0) {
-        const loadingElement = document.getElementById('loading-animation')!;
-        loadingElement.style.display = "none";
-        flag = 1;
-      }
-    }, 250);
-  }
    refresh(){
     window.location.reload();
     

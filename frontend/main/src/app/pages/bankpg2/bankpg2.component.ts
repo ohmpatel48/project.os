@@ -188,31 +188,8 @@ export class Bankpg2Component {
 
     // });
   }
-  getLoading() {
-    // Add event listener here
-    
-    const button = document.getElementById('fullscreen-button');
   
-    button?.addEventListener('click', function handleClick(event) {
-      const loadingElement = document.createElement('div');
-      loadingElement.innerHTML = '<div id="ani" style="position: absolute;top: 0%;width: 100%;background: black;opacity: 0.6;z-index: 100;height: 100%;"class="d-flex justify-content-center"><div style="position:absolute;top:50%;height:85px;width:85px" class="spinner-border" role="status"><span class="sr-only"></span></div></div>';
-      loadingElement.id = 'loading-animation';
-      // loadingElement.querySelector('.loading-spinner')?.classList.add('loading-spinner-style');
-      document.body.appendChild(loadingElement);
-    });
-  
-  }
   refresh(){
     window.location.reload();
 }
-  DelayRedirect() {
-    let flag = 0;
-    setInterval(function () {
-      if (flag == 0) {
-        const loadingElement = document.getElementById('loading-animation')!;
-        loadingElement.style.display = "none";
-        flag = 1;
-      }
-    }, 250);
-  }
 }

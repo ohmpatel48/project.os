@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-// import { Chart } from 'chart.js';
-// import { SetdatarrService } from 'src/app/service/setdataarr.service';
+import { SetdatarrService } from 'src/app/service/setdataarr.service';
 import { Chart, registerables } from 'chart.js';
+import { HttpClient } from '@angular/common/http';
 Chart.register(...registerables);
 
 @Component({
@@ -23,21 +23,15 @@ export class Scanpg2Component {
   flow: any = [];
   cscan(h_pos: any, ftrack: any): void {
     
+    
     document.getElementById('cs')!.style.display = 'flex';
     document.getElementById('top')!.style.display = 'none';
     document.getElementById('bottom')!.style.display = 'block';
 
-    if (h_pos < 0) {
-      console.log('enter positive values');
-      alert('Please Enter positive value only!');
-    }
-    if (h_pos == '') {
-      console.log('Input Require');
-      alert('Please Input Track Data');
-    }
-
     // console.log(ftrack);
     var arr = ftrack.split(',');
+
+    
 
     let seek_count = 0;
     let i;
@@ -66,6 +60,7 @@ export class Scanpg2Component {
       if (arr[i] < h_pos) left.push(arr[i]);
       if (arr[i] > h_pos) right.push(arr[i]);
     }
+    
 
     // sorting left and right vectors
     left.sort(function (a, b) {
@@ -137,14 +132,11 @@ export class Scanpg2Component {
     document.getElementById('top')!.style.display = 'none';
     document.getElementById('bottom')!.style.display = 'block';
 
-    if (h_pos < 0) {
-      console.log('enter positive values');
-      alert('Please Enter positive value only!');
-    }
 
     // console.log(ftrack);
     var arr = ftrack.split(',');
 
+    
 
 
     let seek_count = 0;
@@ -159,7 +151,7 @@ export class Scanpg2Component {
     
 
     this.obj2 = { head: h_pos, array: arr, flow: btnradio };
-    // this.setdata.savescan(this.obj2).subscribe(
+    // this.savedata.savescan(this.obj2).subscribe(
     //   (data) => {
     //   console.log(data);
     //   },
@@ -175,6 +167,7 @@ export class Scanpg2Component {
       if (arr[i] < h_pos) left.push(arr[i]);
       if (arr[i] > h_pos) right.push(arr[i]);
     }
+    
 
     // sorting left and right vectors
     left.sort(function (a, b) {

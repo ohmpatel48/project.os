@@ -77,8 +77,6 @@
           id="load"
           class="spinner"
           (click)="submitValue()"
-          (click)="getLoading()"
-          (click)="DelayRedirect()"
           value="submit"
         >
           SUBMIT
@@ -161,7 +159,7 @@
               </tfoot> -->
             </table>
           </div>
-          <div id="printProcess" style=" margin: 5px; display: none;">
+          <div id="printProcess" style=" margin-inline: 10%; display: none; background-color: #dbb0edfa;padding: 10px;border-radius: 5px;">
             <b style="font-weight:500">
               ANSWER : {{ string }}
             </b>

@@ -171,7 +171,7 @@ export class Rralgopg2Component {
     this.averageResponseTime = 'AverageResponseTime: ' + avgRT;
 
     for (let i = 0; i < n; i++) {
-      let b = 'P' + (i + 1);
+      let b = 'P' + (i );
       this.table.push({
         name: b,
         ArrivalTime: arrivalTime[i],
@@ -185,12 +185,18 @@ export class Rralgopg2Component {
     }
     this.setData();
     let objtemp:any ={};
+    objtemp['color'] = "rgb(255, 255, 255,0.9)";
     objtemp['pid'] = "Pid";
       objtemp['time'] = processSequenceTime[0];
       this.final.push(objtemp);
+      const randomColors = [];
+      for (let i = 0; i < this.table.length; i++) {
+        randomColors.push(this.getRandomColor());
+      }
     for (let i = 0; i < processSequence.length; i++) {
       let obj:any ={};
       obj['pid'] = processSequence[i];
+      obj['color'] = randomColors[parseInt(processSequence[i].substring(1))];
       obj['time'] = processSequenceTime[i+1];
       this.final.push(obj);
     }
@@ -207,6 +213,15 @@ export class Rralgopg2Component {
         flag = 1;
       }
     }, 250);
+  }
+  getRandomColor() {
+    const r = Math.floor(Math.random() * 256);
+    const g = Math.floor(Math.random() * 256);
+    const b = Math.floor(Math.random() * 256);
+    if (r == 0 && g == 0 && b == 0) {
+      return `rgb(255, 255, 255,0.7)`;
+    }
+    return `rgb(${r}, ${g}, ${b},0.7)`;
   }
   getLoading() {
     // Add event listener here
