@@ -1,0 +1,200 @@
+<span
+  class="contact100-form-title"
+  id="fadeIn"
+  style="display: flex; justify-content: center"
+>
+  <div
+    style="
+      border-bottom: 2px solid white;
+      width: fit-content;
+      margin-top: 12px;
+      padding: 3px;
+      color: white;
+    "
+    id="border"
+  >
+    <a id="R">R</a>
+    <a id="o">o</a>
+    <a id="u">u</a>
+    <a id="n">n</a>
+    <a id="d">d</a>
+    <a id="d">-</a>
+    <a id="R">R</a>
+    <a id="o">o</a>
+    <a id="u">b</a>
+    <a id="n">i</a>
+    <a id="d">n</a>
+    <a> Algorithm</a>
+  </div>
+</span>
+<div class="sections">
+  <section class="top" id="top">
+    <form action="GET">
+      <div class="fieldset">
+        <fieldset>
+          <legend>
+            <label for="frames">Arival time</label>
+          </legend>
+          <div class="wrap-input100 pb-3 mb-4">
+            <input
+              required
+              class="input100"
+              #frames
+              placeholder="Enter sequence of arivaltime seperated by ',' "
+            />
+            <span class="focus-input100"></span>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>
+            <label for="istring">Burst time</label>
+          </legend>
+          <div class="wrap-input100 pb-3 mb-4">
+            <input
+              class="input100"
+              #istring
+              placeholder="Enter sequence of bursttime seperated by ','"
+              ng-required
+            />
+            <span class="focus-input100"></span>
+          </div>
+        </fieldset>
+      </div>
+      <div style="display: flex; justify-content: center">
+        <fieldset>
+          <legend>
+            <label for="istring">Time Quantum</label>
+          </legend>
+          <div class="wrap-input100 pb-3 mb-4">
+            <input
+              class="input100"
+              #timeq
+              placeholder="Enter Time Quantum"
+              ng-required
+            />
+            <span class="focus-input100"></span>
+          </div>
+        </fieldset>
+      </div>
+    </form>
+    <div
+      id="fullscreen-button"
+      class="get-started"
+      type="button"
+      style="display: flex; justify-content: center"
+    >
+      <button
+        id="load"
+        class="hero-btn"
+        (click)="submit(frames.value, istring.value, timeq.value)"
+        (click)="getLoading()"
+        (click)="DelayRedirect()"
+        value="submit"
+      >
+        Submit
+      </button>
+    </div>
+  </section>
+
+  <section class="bottom" id="bottom" *ngIf="display">
+    <div class="card" style="background: none; border: none">
+      <div class="card-body text-dark" id="mainTable">
+        <button *ngFor="let ito of flow" id="back" (click)="refresh()">
+          Back
+        </button>
+        <div
+          class="table"
+          style="
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+          "
+        >
+          <table class="table table-striped" style="width: 80%">
+            <thead>
+              <tr
+                class="table"
+                *ngFor="let ito of keys"
+                style="
+                  display: table-cell;
+                  text-align: center;
+                  font-weight: 300;
+                  font-size: 25px;
+                  border: solid 2.5px rgba(255, 255, 255, 0.1);
+                  background-color: #9551a3;
+                  border-color: black;
+                "
+              >
+                {{
+                  ito
+                }}
+              </tr>
+            </thead>
+            <tbody style="margin: 1px">
+              <tr
+                class="table table-striped"
+                *ngFor="let arr of values"
+                style="background-color: rgb(222 185 236)"
+              >
+                <td *ngFor="let oto of arr" style="border-color: black">
+                  {{ oto }}
+                </td>
+              </tr>
+            </tbody>
+            <tfoot
+              *ngFor="let ito of flow"
+              style="background-color: #9551a3; margin-top: 5px"
+            >
+              <tr>
+                <td colspan="3">{{ averageWaitingTime }}</td>
+                <td colspan="3">{{ averageTurnAroundTime }}</td>
+                <td colspan="20">{{ averageResponseTime }}</td>
+              </tr>
+            </tfoot>
+          </table>
+          <div style="display: flex; justify-content: center; width: 60%">
+            <table class="table table-striped" style="width: 80% ;border-color: transparent;">
+                <thead >
+                    
+                  <tr
+                    colspan="2"
+                    class="table"
+                    *ngFor="let ito of final"
+                    style="
+                      display: table-cell;
+                      text-align: center;
+                      font-weight: 300;
+                      font-size: 25px;
+                      border: solid 2.5px rgba(255, 255, 255, 0.1);
+                      background-color: #9551a3;
+                      border-color: black;
+                    "
+                  >
+                    {{
+                      ito.pid
+                    }}
+                  </tr>
+
+                </thead>
+                <tbody style="margin: 1px">
+                  <tr
+                    class="table table-striped"
+                  >
+                    <td  *ngFor="let itoo of final" style="border: none;
+                    padding: 0px;
+                    TEXT-ALIGN: end;
+                    background-color: transparent;
+                    color: white;">
+                        {{ itoo.time }}
+                    </td>
+                    
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

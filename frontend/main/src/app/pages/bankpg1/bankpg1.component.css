@@ -1,0 +1,158 @@
+.algo_heading{
+    width: fit-content;
+}
+.algo_heading .square2 {
+    margin-top: 37px;
+    margin-left: 33px;
+    height: 60px;
+    width: 13px;
+    background-color: #8548C2;
+  }
+
+  .algo_heading h1{
+    color: #f7f2f2;
+    margin-left: 60px;
+    padding-bottom: 10px;
+    width: 100%;
+    /* font-weight: 620; */
+    /* position: absolute; */
+    margin-top: -58px;
+    letter-spacing: 1.1px;
+    color: #f7f2f2;
+    font-size: 3vw;
+    font-weight: 550;
+  }
+
+  .container_docs{
+    letter-spacing: 0.5px;
+    /* border: 2px solid rgb(158, 77, 196); */
+    height: auto;
+    padding: 23px 20px 17px 20px;
+    text-align: center;
+    background-color: #8548C2;
+    border-radius: 11px;
+    width: 1300px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 30px;
+    font-size: 1.1vw;
+    /* margin-bottom: 10px; */
+}
+
+.container_docs h1{
+    font-weight: bold;
+    font-size: 36px;
+    margin-top: 0px;
+    font-weight: 600;
+}
+
+.container_docs h4{
+    font-weight: bold;
+    font-size: 45px;
+    margin-top: 0px;
+    font-weight: 590;
+}
+
+.container_docs h3{
+    /* font-weight: bold; */
+    font-size: 30px;
+    margin-top: 15px;
+    font-weight: 600;
+    color: rgb(245, 241, 241);
+}
+
+.container_docs p{
+    color: rgb(247, 243, 243);
+    margin-left: 9px;
+    text-align: left;
+    margin-top: 5px;
+    /* font-size: 20px; */
+    font-size: 1.25vw;
+    padding-bottom: 10px;
+    line-height : 30px;
+}
+
+.container_docs li{
+    text-align: left;
+    line-height: normal;
+    margin-left: 9px;
+    /* font-size: medium; */
+    color: rgb(249, 247, 247);
+    /* font-weight: bold; */
+    padding-top:5px;
+    font-size: 1.5vw;
+    font-size: 23px;
+}
+
+.special li{
+    line-height: 25px;
+    padding-top: 5px;
+}
+
+.container_docs blod{
+    font-weight: 900;
+}
+
+.container_docs:hover{
+    box-shadow: 0 0 20px 0px rgba(13, 14, 13, 0.644);
+    transition: 0.1s;
+    -webkit-box-shadow: 0px 10px 13px -7px #dbb0ed, 5px 5px 15px 5px rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 10px 13px -7px #dbb0ed, 5px 5px 15px 5px rgba(0, 0, 0, 0.04);
+}
+
+
+/* for GO to Simulator Button*/
+
+.hero-btn {
+    background-color: #ffffff;
+    color: #0f0108;
+    /* padding: 0.6vw; */
+    padding: 10px 20px;
+    border: 1.6px solid #581584c5;
+    outline: none;
+    border-radius: 10px;
+    font-size: 1.05vw;
+    font-weight: 545;
+    width: auto;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 2vw;
+    /* margin-left: 5px; */
+    transition: scale 0.2 ease;
+}
+
+.get-started .hero-btn{
+    display: block;
+    padding: 10px 20px 10px 20px;
+    /* padding-bottom: 10px; */
+    margin-bottom: 13px;
+    font-size: 1.29vw;
+    font-weight: 543;
+    width: auto;
+    text-align: center;
+  }
+  
+  .hero-btn:hover {
+      -webkit-box-shadow: 0px 10px 13px -7px #926da1, 5px 5px 15px 5px rgba(0, 0, 0, 0.04);
+      box-shadow: 0px 10px 13px -7px #dbb0ed, 5px 5px 15px 5px rgba(0, 0, 0, 0.04);
+      border: 1px solid #dbb0ed;
+      background: #581584c5;
+      color: #f1ecf5;
+      transition: 0.21s;
+      font-weight: 690;
+  }
+  
+  /* for the run button */
+  
+  /* .runButton {
+    background-color: #4caf50;
+    color: aliceblue;
+    margin-top:2px;
+    height: 35px;
+    margin-right: 70px;
+    padding-left: 15px;
+    padding-right: 15px; */
+    /* border-radius: 5px solid rgb(199, 14, 14) !important; */
+  
+  
+  

@@ -1,0 +1,40 @@
+<div class="algo_heading">
+    <div class="square2"></div>
+    <h1>DISC SCHEDULING ALGORITHM</h1>
+</div>  
+    <section class="container_docs" data-aos="zoom-in-up">
+        <h3>SCAN Disk scheduling Algorithm</h3>
+        <p>This algorithm processes I/O requests in one direction along the disk, then reverses direction when it reaches the end of the disk. This algorithm ensures that all requests are eventually processed, but can lead to long wait times for requests at the end of the disk.
+        <h4>
+            <li>Advantages</li>
+        </h4>
+        <p>1.Implementation is easy.<br>
+            2. Requests do not have to wait in a queue.<br>
+        </p>
+        <h4>
+            <li>Disadvantages</li>
+        </h4>
+        <p>1. The head keeps going on to the end even if there are no requests in that direction.<br>
+        </p>
+        <a routerLink="SCanSimulator" routerLinkActive="active" class="hero-btn">GO TO SIMULATOR</a>
+        <br>
+    </section>
+
+    <section class="container_docs" data-aos="zoom-in-up">
+        <h3>C - SCAN Disk scheduling Algorithm</h3>
+        <p>This algorithm is similar to SCAN, but instead of reversing direction at the end of the disk, it jumps back to the beginning of the disk and processes requests in the same direction again. This algorithm ensures that all requests are processed in a timely manner.
+        <h4>
+            <li>Advantages</li>
+        </h4>
+        <p>1. The waiting time is uniformly distributed among the requests.<br>
+            2. Response time is good in it.<br>
+        </p>
+        <h4>
+            <li>Disadvantages</li>
+        </h4>
+        <p>1. The time taken by the disk arm to locate a spot is increased here.<br>
+            2. The head keeps going to the end of the disk.<br>
+        </p>
+        <a routerLink="SCanSimulator" routerLinkActive="active" class="hero-btn">GO TO SIMULATOR</a>
+        <br>
+    </section>

@@ -1,0 +1,94 @@
+.square1 {
+    /* margin-top: 7.3%; */
+     /* margin-top: 8vw; */
+     margin-left: 30px;
+     margin-right: 8px;
+     /* padding-right: 12px; */
+     height: 4vw;
+     width: 0.73vw;
+     background-color: #8548C2;
+   }
+ 
+   .base-content1 {
+    color: #f7f2f2;
+     margin-top: 110px;
+     display: flex;
+     flex-direction: row;
+     /* top: 19.8%; */
+     margin-left: 9px;
+     /* padding-bottom: 60px; */
+     width: fit-content;
+   }
+ 
+   .base-content1 h1{
+    letter-spacing: 1.7px;
+    color: #f7f2f2;
+    margin-left: 10px;
+    font-size: 3vw;
+    font-weight: 590;
+    font-weight: bold;
+   }
+ 
+ 
+   .algo-list{
+    letter-spacing: 0.72px;
+    margin: 9px;
+    color: #f7f2f2;
+    font-size: 1.1vw;
+    font-weight: 500;
+     margin-left: 43px;
+     /* margin-top: -40px; */
+     
+     /* width: 100%; */
+     /* position: absolute; */
+     /* padding: 8px; */
+     /* margin-top: 10%; */
+     flex-direction: row;
+     /* top: 28%; */
+     display: inline-block;
+   }
+ 
+   /* .algo-list button{
+     display: block;
+     padding: 10px 24px;
+     padding-bottom: 10px;
+     margin-bottom: 13px;
+     width: 470px;
+     text-align: left;
+   } */
+ 
+   .algo-list .action_btn1{
+     display: block;
+     margin-left: 2.5%;
+     /* padding: 10px 24px; */
+     /* padding-bottom: 10px; */
+     /* margin-bottom: 13px; */
+     width: 40vw;
+     text-align: left;
+     padding: 0.8vw 1.5vw 0.8vw 1.5vw;
+   }
+ 
+   .action_btn1{
+     margin-top: 1%;
+     text-decoration: none;
+     color: #f7f2f2;
+     border: 1.6px solid #8548C2;
+     /* font-size: 1.2vw; */
+     /* position: relative; */
+     /* padding: 1vw 1.5vw 1vw 1.5vw; */
+     cursor: pointer;
+     background: transparent;
+     border-radius: 11px;
+     /* font-weight: 630; */
+     margin-left: 0.5px;
+   }
+ 
+   .action_btn1:hover{
+     /* -webkit-box-shadow: 0px 10px 13px -7px #926da1, 5px 5px 15px 5px rgba(0, 0, 0, 0.04); */
+     /* box-shadow: 0px 10px 13px -7px #dbb0ed, 5px 5px 15px 5px rgba(0, 0, 0, 0.04); */
+     border: 1px solid #dbb0ed;
+     background: #8548C2;
+     color: #f1ecf5;
+     transition: 0.1s;
+     font-weight: 600;
+   }

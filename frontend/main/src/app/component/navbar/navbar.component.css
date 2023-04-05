@@ -1,0 +1,108 @@
+nav {
+    width: 100%;
+    padding: 10px 0;
+    background-color: none;
+    border-bottom: groove;
+    border-color: #7e44bb;
+    border-width: 3px;
+  }
+  
+  nav .menu {
+    max-width: 1250px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    
+  }
+  
+  .menu .logo a {
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.5vw;
+    font-weight: 590;
+  }
+  
+  .menu ul {
+    display: inline-flex;
+  }
+  
+  .menu ul li {
+    list-style: none;
+    margin-left: 5px;
+  }
+  
+  .menu ul li:first-child {
+    margin-left: 0px;
+  }
+  
+  .menu ul li a {
+    letter-spacing: 0.4px;
+    text-decoration: none;
+    /* background-color: #212529; */
+    color: #f7f2f2;
+    font-size: 19px;
+    font-size: 1.18vw;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 7px;
+    
+    transition: all 0.3s ease;
+  }
+  
+  .menu ul li a:hover {
+    background: #7e44bb;
+    color: #f9f7f7;
+  }
+  
+  @media (min-width: 992px) {
+    #mainNav {
+      box-shadow: none;
+      background-color: transparent;
+    }
+  
+    #mainNav .navbar-brand {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  
+    #mainNav .navbar-brand:hover {
+      color: #fff;
+    }
+  
+    #mainNav .navbar-nav .nav-item .nav-link {
+      color: rgba(255, 255, 255, 0.7);
+      padding: 0 1rem;
+    }
+  
+    #mainNav .navbar-nav .nav-item .nav-link:hover {
+      color: #fff;
+    }
+  
+    #mainNav .navbar-nav .nav-item:last-child .nav-link {
+      padding-right: 0;
+    }
+  
+    #mainNav.navbar-scrolled {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      background-color: #fff;
+    }
+  
+    #mainNav.navbar-scrolled .navbar-brand {
+      color: #212529;
+    }
+  
+    #mainNav.navbar-scrolled .navbar-brand:hover {
+      color: #f4623a;
+    }
+  
+    #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link {
+      color: #212529;
+    }
+  
+    #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link:hover {
+      color: #f4623a;
+    }
+  }
+  

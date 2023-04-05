@@ -1,0 +1,235 @@
+
+.square {
+    /* margin-top: 7.3%; */
+    /* margin-top: 8vw; */
+    margin-left: 36px;
+    margin-right: 7px;
+    /* padding-right: 12px; */
+    height: 12vw;
+    width: 1.2vw;
+    background-color: #8548C2;
+  }
+
+  .base-content {
+    margin-top: 110px;
+    display: flex;
+    flex-direction: row;
+    /* top: 19.8%; */
+    margin-left: 7px;
+    margin-right: 9px;
+    padding-bottom: 10px;
+    width: fit-content;
+    /* position: absolute; */
+    /* margin-top: 60px; */
+    /* transform: translateY(-10%); */
+  }
+
+  .base-content h1{
+    color: #f7f2f2;
+    letter-spacing: 4px;
+    /* margin-top: 7%; */
+    margin-left: 16px;
+    /* font-size: 3.3vw; */
+    font-size: 5vw;
+    flex-wrap: wrap;
+    font-weight: 660;
+  }
+  
+  p {
+    letter-spacing: 0.5px;
+    color: #f7f2f2;
+    margin-left: 78px;
+    padding-top: 1px;
+    /* font-size: 1.3vw; */
+    font-size: 1.26vw;
+    flex-wrap: wrap;
+  }
+
+  .action_btn{
+    background-color: #ffffff;
+    color: #f7f2f2;
+    /* padding: 0.6vw; */
+    padding: 10px 20px;
+    border: 1.6px solid #A66EDE;
+    outline: none;
+    border-radius: 10px;
+    font-size: 0.8vw;
+    font-weight: 545;
+    width: auto;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 2vw;
+    /* margin-left: 5px; */
+    transition: scale 0.2 ease;
+  }
+
+  .action_btn:hover{
+    -webkit-box-shadow: 0px 10px 13px -7px #926da1, 5px 5px 15px 5px rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 10px 13px -7px #dbb0ed, 5px 5px 15px 5px rgba(0, 0, 0, 0.04);
+    border: 1px solid #dbb0ed;
+    background: #8548C2;
+    color: #f1ecf5;
+    transition: 0.21s;
+    font-weight: 690;
+  }
+
+  .action_btn:active{
+    scale: 0.95;
+  }
+
+  /* .hero-btn a{
+    font-weight: 100;
+    font-size: 20px;
+  } */
+
+  .get-started{
+    margin-left: 79px;
+    margin-top: 20px;
+  }
+
+  .hero-btn {
+    /* display: inline-block; */
+    text-decoration: none;
+    color: #f7f2f2;
+    border: 1.6px solid ;
+    /* font-size: 19px; */
+    position: relative;
+    /* padding: 10px 20px; */
+    cursor: pointer;
+    width: 400px;
+    text-align: center;
+    background: transparent;
+    border-radius: 10px;
+    /* font-weight: 530; */
+    margin-left: 0.5px;
+}
+
+.get-started .hero-btn{
+  display: block;
+  padding: 10px 20px 10px 20px;
+  /* padding-bottom: 10px; */
+  margin-bottom: 13px;
+  font-size: 1vw;
+  font-weight: 543;
+  letter-spacing: 0.7px;
+  width: auto;
+  text-align: center;
+}
+
+.hero-btn:hover {
+    /* -webkit-box-shadow: 0px 10px 13px -7px #926da1, 5px 5px 15px 5px rgba(0, 0, 0, 0.04); */
+    /* box-shadow: 0px 10px 13px -7px #dbb0ed, 5px 5px 15px 5px rgba(0, 0, 0, 0.04); */
+    border: 1px solid #dbb0ed;
+    background: #8548C2;
+    color: #f1ecf5;
+    transition: 0.21s;
+    font-weight: 690;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+body {
+	margin: 0px;
+}
+
+#circle-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* background-color: lightblue; */
+	width: 10vw;
+	height: 100vh;
+	position: relative;
+}
+
+.circle {
+	width: 5vh;
+	height: 5vh;
+	position: absolute;
+	border-radius: 6%;
+}
+
+/* #one:before {
+	content: "Hover Me!";
+} */
+
+#one {
+	background-color: rgba(0,0,225, 0.45);
+	font-size: 40px;
+	font-family: "Oswald", sans-serif;
+	letter-spacing: 1.5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-weight: bold;
+	transition: 1s;
+}
+
+#two {
+	background-color: green;
+	transition: 1s;
+	opacity: 0.5;
+}
+
+#three {
+	background-color: red;
+	transition: 1s;
+	opacity: 0.5;
+}
+
+#four {
+	background-color: orange;
+	transition: 1s;
+	opacity: 0.5;
+}
+#five {
+	background-color: green;
+	transition: 1s;
+	opacity: 0.5;
+}
+
+#cc {
+	position:relative;
+	width: 10vh;
+	height: 10vh;
+	border-radius: 10%;
+	overflow: hidden;
+}
+
+#cc:hover #two {
+	transform: translate(0px, 75px);
+}
+#cc:hover #three {
+	transform: translate(0px, -75px);
+}
+#cc:hover #four {
+	transform: translate(75px, 0px);
+}
+#cc:hover #five {
+	transform: translate(-75px, 0px);
+}
+
+#mb {
+	position: absolute;
+	font-family: "Oswald", sans-serif;
+	letter-spacing: 0.5px;
+	bottom: 0px;
+	display: flex;
+	justify-content: center;
+	width: 100vw;
+	background-color: #3B3A6D;
+	color: white;
+}
+
+#mb a {
+	color: white;
+	text-decoration: none;
+	font-weight: bold;
+	padding: 0px;
+}
+
+#mb p {
+	padding: 5px;
+	margin: 0px;
+}
