@@ -1,24 +1,19 @@
 import { Component } from '@angular/core';
+import { SetdatarrService } from 'src/app/service/setdataarr.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-marupg2',
   templateUrl: './marupg2.component.html',
-  styleUrls: ['./marupg2.component.css']
+  styleUrls: ['./marupg2.component.css'],
 })
 export class Marupg2Component {
 
-  // constructor(private spinner: NgxSpinnerService) { }
-
-  // showLoader() {
-  // this.spinner.show();
-  // your code to perform the save action goes here
-  // once the action is complete, hide the loader
-  // e.g. this.spinner.hide();
-  // }
-
-  constructor() { }
+  constructor(private setdata: SetdatarrService) {}
 
   tableData: any = [];
+  savedata:any={};
   frames: any;
   pages: any = [];
   summary: any;
@@ -33,38 +28,30 @@ export class Marupg2Component {
   hr: any;
   fr: any;
 
-
-
   keys: any = [];
   values: any = [];
   hitcount = 0;
   misscount = 0;
   flow: any = [];
   getData() {
-
     this.tableData.forEach((element: any) => {
       this.values.push(Object.values(element));
       this.keys = Object.keys(element);
     });
   }
 
-
   submit(frames: any, istring: any) {
-
 
     this.flow.push(1);
     const top = document.getElementById('top');
 
     top?.addEventListener('click', function handleClick(event) {
-      top.style.display = "none";
-      
+      top.style.display = 'none';
     });
-    document.getElementById('bottom')!.style.display='block';
+    document.getElementById('bottom')!.style.display = 'block';
     // bottom?.addEventListener('click', function handleClick(event) {
     //   bottom.style.display = "block";
     // });
-    
-
 
     this.frames = frames;
 
@@ -80,9 +67,9 @@ export class Marupg2Component {
       window.location.reload();
       return;
     }
-    this.pages = istring.split(",");
-    var arr = [] ;
-    arr= istring.split(',');
+    this.pages = istring.split(',');
+    var arr = [];
+    arr = istring.split(',');
     for (let index = 0; index < arr.length; index++) {
       if (Number.isNaN(parseInt(arr[index]))) {
         alert('Enter appropriate values.');
@@ -97,6 +84,12 @@ export class Marupg2Component {
         return;
       }
     }
+    this.savedata['frames']=this.frames;
+    this.savedata['array']=this.pages;
+    this.setdata.savemru(this.savedata).subscribe(
+      (data: any) => console.log(data),
+      (error) => console.log(error)
+    );
     let count = 0;
     let n = this.pages.length;
 
@@ -104,10 +97,10 @@ export class Marupg2Component {
     let inst = [];
     let v = [];
     for (let index = 0; index < this.pages.length; index++) {
-      hit[index] = "No";
-      v[index] = "-";
+      hit[index] = 'No';
+      v[index] = '-';
       // for (let j = 0; j < frames; j++) {
-      //     inst[index][j]="-";   
+      //     inst[index][j]="-";
       // }
     }
     let mentian = [];
@@ -118,24 +111,21 @@ export class Marupg2Component {
         if (inst.length < frames) {
           // inst.push(pages[i]);
           inst.unshift(this.pages[i]);
-        }
-        else {
+        } else {
           v[i] = inst[0];
           inst.splice(0, 1);
           inst.unshift(this.pages[i]);
         }
         this.misscount++;
-      }
-      else {
-
+      } else {
         inst.splice(inst.indexOf(this.pages[i]), 1);
         inst.unshift(this.pages[i]);
-        hit[i] = "Yes";
+        hit[i] = 'Yes';
         this.hitcount++;
       }
       for (let k = 0; k < frames; k++) {
         if (inst[k] == undefined) {
-          temp3[k] = "-";
+          temp3[k] = '-';
         } else {
           temp3[k] = inst[k];
         }
@@ -145,7 +135,7 @@ export class Marupg2Component {
     }
     for (let index = 0; index < this.pages.length; index++) {
       let temp: any = {};
-      let tempstring = "P" + count;
+      let tempstring = 'P' + count;
       count++;
       temp[`Name`] = tempstring;
       temp[`Page`] = this.pages[index];
@@ -157,34 +147,45 @@ export class Marupg2Component {
       this.tableData.push(temp);
     }
     this.getData();
-    this.summary = "Summary:-";
-    this.output = "Output";
-    this.tf = "Total Frames" + ": " + this.frames;
-    this.tp = "Total Pages" + ": " + this.pages.length;
-    this.sp = "Total Page Faults" + ": " + this.pages;
-    this.observation = "Observation:-";
-    this.tr = "Total Reference" + ": " + this.pages.length;
-    this.nh = "Number of Hits" + ": " + this.hitcount;
-    this.nf = "Number of Faults" + ": " + this.misscount;
-    this.hr = "Hit Ratio" + ": " + (this.hitcount / this.pages.length) * 100 + "%";
-    this.fr = "Fault Ratio" + ": " + (this.misscount / this.pages.length) * 100 + "%";
-
-
-
-  }
-  getcolor(value: string): any {
-    if ("No" == value) {
-      return {'background-color': '#ff6961'};
-    } else if ("Yes" == value) {
-      return {'background-color': '#77dd77'};
-    } else {
-      return {'background-color': 'none'};
-    }
+    
+    this.summary = 'Summary:-';
+    this.output = 'Output';
+    this.tf = 'Total Frames' + ': ' + this.frames;
+    this.tp = 'Total Pages' + ': ' + this.pages.length;
+    this.sp = 'Total Page Faults' + ': ' + this.pages;
+    this.observation = 'Observation:-';
+    this.tr = 'Total Reference' + ': ' + this.pages.length;
+    this.nh = 'Number of Hits' + ': ' + this.hitcount;
+    this.nf = 'Number of Faults' + ': ' + this.misscount;
+    this.hr =
+      'Hit Ratio' + ': ' + (this.hitcount / this.pages.length) * 100 + '%';
+    this.fr =
+      'Fault Ratio' + ': ' + (this.misscount / this.pages.length) * 100 + '%';
   }
   
-   refresh(){
-    window.location.reload();
-    
-}
+  getcolor(value: string): any {
+    if ('No' == value) {
+      return { 'background-color': '#ff6961' };
+    } else if ('Yes' == value) {
+      return { 'background-color': '#77dd77' };
+    } else {
+      return { 'background-color': 'none' };
+    }
+  }
 
+  refresh() {
+    window.location.reload();
+  }
+  openPDF(): void {
+    let DATA: any = document.getElementById('tt');
+    html2canvas(DATA).then((canvas) => {
+      let fileWidth = 208;
+      let fileHeight = (canvas.height * fileWidth) / canvas.width;
+      const FILEURI = canvas.toDataURL('image/png');
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let position = 0;
+      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      PDF.save('MRU.pdf');
+    });
+  }
 }

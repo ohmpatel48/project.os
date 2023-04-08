@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { FriComponent } from './pages/fri/fri.component';
-// import { BankerComponent } from './pages/banker/banker.component';
 import { HomepgComponent } from './pages/homepg/homepg.component';
 import { Page2Component } from './pages/page2/page2.component';
 import { Rralgopg1Component } from './pages/rralgopg1/rralgopg1.component';
@@ -20,7 +17,8 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { BackgroundComponent } from './component/background/background.component';
 import { AboutusComponent } from './pages/aboutus/aboutus.component';
 import { FormsModule } from '@angular/forms';
-
+import { SetdatarrService } from './service/setdataarr.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,13 +38,14 @@ import { FormsModule } from '@angular/forms';
     AboutusComponent
   ],
   imports: [
-    // NgxSpinnerModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
     
   ],
-  providers: [],
+  providers: [SetdatarrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

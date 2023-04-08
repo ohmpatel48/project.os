@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SetdatarrService } from 'src/app/service/setdataarr.service';
 
 @Component({
   selector: 'app-rralgopg2',
@@ -6,10 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./rralgopg2.component.css'],
 })
 export class Rralgopg2Component {
-  constructor() {}
+  constructor(private setdata: SetdatarrService) {}
 
   timequant: any;
   table: any = [];
+  savetable: any = [];
   flow: any = [];
   keys: any = [];
   values: any = [];
@@ -104,7 +106,6 @@ export class Rralgopg2Component {
           startTime[currentProcess] = time - 1;
           firstTimeBools[currentProcess] = true;
         }
-        // console.log(currentProcess);
         if (remainingBurstTime[currentProcess] <= timeq) {
           processSequence.push('P' + currentProcess);
           processSequenceTime.push(time - 1);
@@ -171,7 +172,7 @@ export class Rralgopg2Component {
     this.averageResponseTime = 'AverageResponseTime: ' + avgRT;
 
     for (let i = 0; i < n; i++) {
-      let b = 'P' + (i );
+      let b = 'P' + i;
       this.table.push({
         name: b,
         ArrivalTime: arrivalTime[i],
@@ -182,22 +183,37 @@ export class Rralgopg2Component {
         ST: startTime[i],
         RT: responsiveTime[i],
       });
+      this.savetable.push({
+        name: b,
+        arrival: arrivalTime[i],
+        burst: burstTime[i],
+        compilation: complitionTime[i],
+        waiting: waitingTime[i],
+        turnaround: TATime[i],
+        start: startTime[i],
+        rt: responsiveTime[i],
+      });
     }
     this.setData();
-    let objtemp:any ={};
-    objtemp['color'] = "rgb(255, 255, 255,0.9)";
-    objtemp['pid'] = "Pid";
-      objtemp['time'] = processSequenceTime[0];
-      this.final.push(objtemp);
-      const randomColors = [];
-      for (let i = 0; i < this.table.length; i++) {
-        randomColors.push(this.getRandomColor());
-      }
+    console.log(this.savetable);
+    this.setdata.saverr(this.savetable).subscribe(
+      (data) => {console.log(data);},
+      (error) => {console.log(error);}
+      );
+    let objtemp: any = {};
+    objtemp['color'] = 'rgb(255, 255, 255,0.9)';
+    objtemp['pid'] = 'Pid';
+    objtemp['time'] = processSequenceTime[0];
+    this.final.push(objtemp);
+    const randomColors = [];
+    for (let i = 0; i < this.table.length; i++) {
+      randomColors.push(this.getRandomColor());
+    }
     for (let i = 0; i < processSequence.length; i++) {
-      let obj:any ={};
+      let obj: any = {};
       obj['pid'] = processSequence[i];
       obj['color'] = randomColors[parseInt(processSequence[i].substring(1))];
-      obj['time'] = processSequenceTime[i+1];
+      obj['time'] = processSequenceTime[i + 1];
       this.final.push(obj);
     }
   }

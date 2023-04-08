@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SetdatarrService } from 'src/app/service/setdataarr.service';
 
 @Component({
   selector: 'app-banker',
@@ -6,7 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./bankpg2.component.css'],
 })
 export class Bankpg2Component {
-  constructor() { }
+  constructor(private setdata: SetdatarrService) {}
   table: any = [];
   max: any = [];
   alloc: any = [];
@@ -14,11 +16,10 @@ export class Bankpg2Component {
   size: any = 0;
   finalans: any = [];
   string: any;
-  flow:any = [];
+  flow: any = [];
+  hidebutton: any = true;
   addRow(max: any, alloc: any, avail: any): void {
-
-    document.getElementById('A1')!.style.display='none';
-
+    document.getElementById('A1')!.style.display = 'none';
     var maxx = max.split(',');
     max = maxx;
     var allocc = alloc.split(',');
@@ -43,18 +44,28 @@ export class Bankpg2Component {
       allocB: alloc[1],
       allocC: alloc[2],
     });
+    console.log(this.table);
   }
+
   removeRow(): void {
     this.table.splice(this.table.length - 1, 1);
+    if (this.table.length == 0) {
+      document.getElementById('A1')!.style.display = 'flex';
+    }
   }
   submitValue(): void {
+    this.hidebutton = false;
+    this.setdata.savebanker(this.table).subscribe(
+      (data) => console.log(data),
+      (err) => console.log(err)
+    );
     this.flow.push(1);
     const top = document.getElementById('top');
 
     top?.addEventListener('click', function handleClick(event) {
-      top.style.display = "none";
+      top.style.display = 'none';
     });
-    document.getElementById('printProcess')!.style.display='block';
+    document.getElementById('printProcess')!.style.display = 'block';
 
     let allocatedA = [];
     let allocatedB = [];
@@ -77,13 +88,11 @@ export class Bankpg2Component {
     let allocatedALL = new Array(n);
     let maximumALL = new Array(n);
 
-
-
     for (let i = 0; i < n; i++) {
       allocatedALL[i] = new Array(3);
       maximumALL[i] = new Array(3);
 
-      allocatedALL[i][0] = allocatedA[i]
+      allocatedALL[i][0] = allocatedA[i];
       allocatedALL[i][1] = allocatedB[i];
       allocatedALL[i][2] = allocatedC[i];
       maximumALL[i][0] = maximumA[i];
@@ -91,18 +100,15 @@ export class Bankpg2Component {
       maximumALL[i][2] = maximumC[i];
     }
 
-
     availableResorces.push(parseInt(this.table[0].avaA));
     availableResorces.push(parseInt(this.table[0].avaB));
     availableResorces.push(parseInt(this.table[0].avaC));
-
 
     let deadlock = false;
 
     let sumA = 0;
     let sumB = 0;
     let sumC = 0;
-
 
     for (let i = 0; i < allocatedA.length; i++) {
       sumA = sumA + allocatedA[i];
@@ -114,7 +120,11 @@ export class Bankpg2Component {
     sumB = sumB + availableResorces[1];
     sumC = sumC + availableResorces[2];
 
-    if (sumA > Math.max.apply(null, maximumA) || sumB > Math.max.apply(null, maximumB) || sumC > Math.max.apply(null, maximumC)) {
+    if (
+      sumA > Math.max.apply(null, maximumA) ||
+      sumB > Math.max.apply(null, maximumB) ||
+      sumC > Math.max.apply(null, maximumC)
+    ) {
       deadlock = true;
     }
 
@@ -124,19 +134,16 @@ export class Bankpg2Component {
       // let temp :any= [];
       need[i] = new Array(3);
       for (let j = 0; j < 3; j++) {
-
         need[i][j] = maximumALL[i][j] - allocatedALL[i][j];
       }
     }
     console.log(need);
 
-
     if (!deadlock) {
-      this.finalans.push("Deadlock");
-    }
-    else {
+      this.finalans.push('Deadlock');
+    } else {
       // this.finalans.push("not deadlock");
-      console.log("else");
+      console.log('else');
       let flag = [];
       let ans = [];
       for (let i = 0; i < n; i++) {
@@ -144,10 +151,7 @@ export class Bankpg2Component {
       }
 
       for (let i = 0; ans.length != n; i++) {
-
-
         for (let j = 0; j < n; j++) {
-
           if (flag[j] == 0) {
             let temp = false;
             for (let k = 0; k < 3; k++) {
@@ -159,14 +163,13 @@ export class Bankpg2Component {
 
             if (!temp) {
               for (let m = 0; m < n; m++) {
-                availableResorces[m] += allocatedALL[j][m]
+                availableResorces[m] += allocatedALL[j][m];
               }
 
               flag[j] = 1;
               ans.push(j);
             }
           }
-
         }
       }
 
@@ -177,19 +180,24 @@ export class Bankpg2Component {
         // ansstr = ansstr+str;
         this.finalans.push(str);
       }
-
     }
 
     this.string = this.finalans.join(' ');
     this.finalans = [];
-    // this.setdata.savebanker(this.table).subscribe((data) => {
-    //   console.log(data);
-
-
-    // });
   }
-  
-  refresh(){
+  hidetable() {
+    if (this.table.length == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  refresh() {
     window.location.reload();
-}
+  }
+
+  
+  
+
 }
