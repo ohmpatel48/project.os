@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SetdatarrService } from 'src/app/service/setdataarr.service';
-
+//a comment
 @Component({
   selector: 'app-rralgopg2',
   templateUrl: './rralgopg2.component.html',
