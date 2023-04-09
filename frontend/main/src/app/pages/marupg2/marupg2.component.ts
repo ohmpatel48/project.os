@@ -10,10 +10,10 @@ import html2canvas from 'html2canvas';
 })
 export class Marupg2Component {
 
-  constructor(private setdata: SetdatarrService) {}
+  constructor(private setdata: SetdatarrService) { }
 
   tableData: any = [];
-  savedata:any={};
+  savedata: any = {};
   frames: any;
   pages: any = [];
   summary: any;
@@ -67,6 +67,7 @@ export class Marupg2Component {
       window.location.reload();
       return;
     }
+
     this.pages = istring.split(',');
     var arr = [];
     arr = istring.split(',');
@@ -84,8 +85,8 @@ export class Marupg2Component {
         return;
       }
     }
-    this.savedata['frames']=this.frames;
-    this.savedata['array']=this.pages;
+    this.savedata['frames'] = this.frames;
+    this.savedata['array'] = this.pages;
     this.setdata.savemru(this.savedata).subscribe(
       (data: any) => console.log(data),
       (error) => console.log(error)
@@ -147,7 +148,7 @@ export class Marupg2Component {
       this.tableData.push(temp);
     }
     this.getData();
-    
+
     this.summary = 'Summary:-';
     this.output = 'Output';
     this.tf = 'Total Frames' + ': ' + this.frames;
@@ -162,7 +163,7 @@ export class Marupg2Component {
     this.fr =
       'Fault Ratio' + ': ' + (this.misscount / this.pages.length) * 100 + '%';
   }
-  
+
   getcolor(value: string): any {
     if ('No' == value) {
       return { 'background-color': '#ff6961' };
@@ -177,6 +178,7 @@ export class Marupg2Component {
     window.location.reload();
   }
   openPDF(): void {
+    console.log("Ejdn");
     let DATA: any = document.getElementById('tt');
     html2canvas(DATA).then((canvas) => {
       let fileWidth = 208;

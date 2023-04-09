@@ -8,7 +8,7 @@ import { SetdatarrService } from 'src/app/service/setdataarr.service';
   styleUrls: ['./bankpg2.component.css'],
 })
 export class Bankpg2Component {
-  constructor(private setdata: SetdatarrService) {}
+  constructor(private setdata: SetdatarrService) { }
   table: any = [];
   max: any = [];
   alloc: any = [];
@@ -32,6 +32,30 @@ export class Bankpg2Component {
       a++;
       b = 'P' + a;
     }
+
+    if (max.length > 3 || avail.length > 3 || alloc.length > 3) {
+      alert('Enter appropriate values.');
+      window.location.reload();
+      return;
+    }
+    else {
+      for (let index = 0; index < 3; index++) {
+        if (Number.isNaN(parseInt(max[index])) || Number.isNaN(parseInt(alloc[index])) || Number.isNaN(parseInt(avail[index]))) {
+          alert('Enter appropriate values.');
+          window.location.reload();
+          return;
+        }
+      }
+      for (let index = 0; index < 3; index++) {
+        if (!(Number.isInteger(parseInt(max[index])) || Number.isInteger(parseInt(alloc[index])) || Number.isInteger(parseInt(avail[index])))) {
+          alert('Enter appropriate values.');
+          window.location.reload();
+          return;
+        }
+      }
+
+    }
+
     this.table.push({
       name: b,
       avaA: avail[0],
@@ -54,6 +78,13 @@ export class Bankpg2Component {
     }
   }
   submitValue(): void {
+
+    if (this.table.length < 1) {
+      alert('Enter appropriate values.');
+      window.location.reload();
+      return;
+    }
+
     this.hidebutton = false;
     this.setdata.savebanker(this.table).subscribe(
       (data) => console.log(data),
@@ -197,7 +228,7 @@ export class Bankpg2Component {
     window.location.reload();
   }
 
-  
-  
+
+
 
 }
