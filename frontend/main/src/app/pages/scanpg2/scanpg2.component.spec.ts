@@ -8,9 +8,9 @@ describe('Scanpg2Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ Scanpg2Component ]
+      declarations: [Scanpg2Component]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(Scanpg2Component);
     component = fixture.componentInstance;

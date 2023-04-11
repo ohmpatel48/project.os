@@ -9,6 +9,8 @@ import { SetdatarrService } from 'src/app/service/setdataarr.service';
 export class Rralgopg2Component {
   constructor(private setdata: SetdatarrService) { }
 
+
+  //just trying git again
   timequant: any;
   table: any = [];
   savetable: any = [];
