@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { SetdatarrService } from 'src/app/service/setdataarr.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 //a comment
 @Component({
   selector: 'app-rralgopg2',
@@ -299,6 +301,29 @@ export class Rralgopg2Component {
         .querySelector('.loading-spinner')
         ?.classList.add('loading-spinner-style');
       document.body.appendChild(loadingElement);
+    });
+  }
+
+  openPDF(): void {
+    let DATA: any = document.getElementById('tab');
+      html2canvas(DATA).then((canvas) => {
+        let fileWidth = 208;
+        let fileHeight = (canvas.height * fileWidth) / canvas.width;
+        const FILEURI = canvas.toDataURL('image/png');
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.setFontSize(20);
+        const heading = 'TEAM 4';
+        const headingWidth = PDF.getStringUnitWidth(heading) * PDF.getFontSize() / PDF.internal.scaleFactor;
+        PDF.text(heading, PDF.internal.pageSize.width / 2 - headingWidth / 2, 15);
+        position = 30;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+        const now = new Date();
+        const dateStr = now.toLocaleDateString();
+        const timeStr = now.toLocaleTimeString();
+        PDF.setFontSize(8);
+        PDF.text(`Date: ${dateStr} Time: ${timeStr}`, 85, position + fileHeight + 10);
+      PDF.save('RR.pdf');
     });
   }
 }

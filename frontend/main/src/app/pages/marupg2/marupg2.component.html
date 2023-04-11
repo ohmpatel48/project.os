@@ -30,7 +30,7 @@
         <!-- <div class="wrap-contact100" style="position: absolute;left: 5%;"> -->
         <fieldset>
           <legend>
-            <label for="frames">NUMBER OF PAGES</label>
+            <label for="frames">NUMBER OF FRAMES</label>
           </legend>
           <div class="wrap-input100 pb-3 mb-4">
             <input
@@ -73,19 +73,21 @@
   </section>
 
   <section class="bottom" id="bottom" style="display: none">
+<div style="display: flex; justify-content: space-between;">
+    <button id="back" (click)="refresh()">
+      Back
+    </button>
+ 
+    <button (click)=" openPDF()"> download</button>
 
-
-    //added download function
+  </div>
     <div class="card" id="tt" style="background: none; border: none">
       <div
         class="card-body text-dark"
         id="mainTable"
         style="display: flex; flex-direction: column"
       >
-        <button *ngFor="let ito of flow" id="back" (click)="refresh()">
-          Back
-        </button>
-        <button (click)=" openPDF()"> download</button>
+        
         <div class="table" style="display: flex; justify-content: center">
           <table  class="table table-striped" style="width: 80%">
             <thead>
