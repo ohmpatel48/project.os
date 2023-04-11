@@ -1,0 +1,43 @@
+
+<div class="center" style="display: flex; justify-content: center;">
+    <div class="container">
+     <a class="close-btn fas fa-times" title="close"  routerLink="/login" routerLinkActive="active" style="border: none;color: black;"></a>
+     <div class="text">
+          Create Account
+       </div>
+       <form action="GET">
+          <div class="data">
+             <label>Name</label>
+             <input type="text" required>
+          </div>
+          <div class="data">
+             <label>Email</label>
+             <input type="email" required>
+          </div>
+          <div class="data">
+             <label>Password</label>
+             <input type="password" required>
+          </div>
+          <div class="data">
+             <label>Re_Password</label>
+             <input type="password" required>
+          </div>
+          <div class="data" style="margin-bottom: 0px;">
+              <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" style="height: 51%;
+              width: 6%;
+              padding-left: 0px;
+              font-size: 0px;
+              margin-top: 15px;
+              margin-bottom: 0px;" />
+              <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree   <a href="#" class="term-service">Terms of service</a></label>
+         </div>
+          <div class="btn">
+             <div class="inner"></div>
+             <button type="submit">Register</button>
+          </div>
+          <div class="signup-link">
+             Already Registered? <a routerLink="/login" routerLinkActive="active" class="hero-btn">Login now</a>
+          </div>
+       </form>
+    </div>
+ </div>
