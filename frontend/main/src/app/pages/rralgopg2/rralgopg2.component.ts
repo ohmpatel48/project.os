@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { SetdatarrService } from 'src/app/service/setdataarr.service';
-
+//a comment
 @Component({
   selector: 'app-rralgopg2',
   templateUrl: './rralgopg2.component.html',
   styleUrls: ['./rralgopg2.component.css'],
 })
 export class Rralgopg2Component {
-  constructor(private setdata: SetdatarrService) {}
+  constructor(private setdata: SetdatarrService) { }
 
   timequant: any;
   table: any = [];
@@ -42,6 +42,50 @@ export class Rralgopg2Component {
     this.arrivalTime = frames.split(',');
     this.burstTime = istring.split(',');
     this.timequant = timeq;
+
+    if (timeq < 1) {
+      console.log('enter positive values');
+      alert('Please Enter positive value only!');
+      window.location.reload();
+      return;
+    }
+    if (timeq == '') {
+      console.log('Input Require');
+      alert('Please Input Track Data');
+      window.location.reload();
+      return;
+    }
+
+    for (let index = 0; index < arrivalTime.length; index++) {
+      if (Number.isNaN(parseInt(arrivalTime[index]))) {
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+      if (!Number.isInteger(parseInt(arrivalTime[index]))) {
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+      if (Number.isNaN(parseInt(arrivalTime[index]))) {
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+      if (!Number.isInteger(parseInt(arrivalTime[index]))) {
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+      if(arrivalTime.length != burstTime.length){
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+    }
+
+
+
     for (let index = 0; index < arrivalTime.length; index++) {
       arrivalTime[index] = parseInt(arrivalTime[index]);
       burstTime[index] = parseInt(burstTime[index]);
@@ -197,9 +241,9 @@ export class Rralgopg2Component {
     this.setData();
     console.log(this.savetable);
     this.setdata.saverr(this.savetable).subscribe(
-      (data) => {console.log(data);},
-      (error) => {console.log(error);}
-      );
+      (data) => { console.log(data); },
+      (error) => { console.log(error); }
+    );
     let objtemp: any = {};
     objtemp['color'] = 'rgb(255, 255, 255,0.9)';
     objtemp['pid'] = 'Pid';

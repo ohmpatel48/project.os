@@ -9,7 +9,7 @@ Chart.register(...registerables);
   styleUrls: ['./scanpg2.component.css'],
 })
 export class Scanpg2Component {
-  constructor(private setdata: SetdatarrService) {}
+  constructor(private setdata: SetdatarrService) { }
   @ViewChild('mychart') canvasRef: any;
   selected: any;
   finalans1: any;
@@ -31,14 +31,27 @@ export class Scanpg2Component {
       console.log('enter positive values');
       alert('Please Enter positive value only!');
     }
-
     if (h_pos == '') {
       console.log('Input Require');
-      alert('Please Input Track Data');
+      alert('Please Input Track Data');
     }
 
     // console.log(ftrack);
     var arr = ftrack.split(',');
+
+    for (let index = 0; index < arr.length; index++) {
+      if (Number.isNaN(parseInt(arr[index]))) {
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+      if (!Number.isInteger(parseInt(arr[index]))) {
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+    }
+
 
     // declarations
     let seek_count = 0;
@@ -52,6 +65,12 @@ export class Scanpg2Component {
     let size = arr.length;
     let btnradio = this.selected;
     this.obj1 = { head: h_pos, array: arr, flow: btnradio };
+
+    if(btnradio == null){
+      alert("Select direction...");
+      window.location.reload();
+      return;
+    }
 
     this.setdata.savecscan(this.obj1).subscribe(
       (data) => {
@@ -147,9 +166,27 @@ export class Scanpg2Component {
       console.log('enter positive values');
       alert('Please Enter positive value only!');
     }
+    if (h_pos == '') {
+      console.log('Input Require');
+      alert('Please Input Track Data');
+    }
 
     // console.log(ftrack);
     var arr = ftrack.split(',');
+
+    for (let index = 0; index < arr.length; index++) {
+      if (Number.isNaN(parseInt(arr[index]))) {
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+      if (!Number.isInteger(parseInt(arr[index]))) {
+        alert('Enter appropriate values.');
+        window.location.reload();
+        return;
+      }
+    }
+
 
     // declarations
     let seek_count = 0;
@@ -161,6 +198,12 @@ export class Scanpg2Component {
     let disk_size = 200;
     let size = arr.length;
     var btnradio = this.selected;
+
+    if(btnradio == null){
+      alert("Select direction...");
+      window.location.reload();
+      return;
+    }
 
     this.obj2 = { head: h_pos, array: arr, flow: btnradio };
 
