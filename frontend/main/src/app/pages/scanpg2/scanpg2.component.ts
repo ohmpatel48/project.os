@@ -8,9 +8,12 @@ Chart.register(...registerables);
   templateUrl: './scanpg2.component.html',
   styleUrls: ['./scanpg2.component.css'],
 })
+
 export class Scanpg2Component {
   constructor(private setdata: SetdatarrService) { }
   @ViewChild('mychart') canvasRef: any;
+
+  //declaring the globle variables
   selected: any;
   finalans1: any;
   finalarr1: any = [];
@@ -21,12 +24,13 @@ export class Scanpg2Component {
   obj1: any;
   flow: any = [];
 
-  // C-Scan
+  // C-Scan function
   cscan(h_pos: any, ftrack: any): void {
     document.getElementById('cs')!.style.display = 'flex';
     document.getElementById('top')!.style.display = 'none';
     document.getElementById('bottom')!.style.display = 'block';
 
+    //checking the --validations--
     if (h_pos < 0) {
       console.log('enter positive values');
       alert('Please Enter positive value only!');
@@ -36,9 +40,9 @@ export class Scanpg2Component {
       alert('Please Input Track Data');
     }
 
-    // console.log(ftrack);
     var arr = ftrack.split(',');
 
+    //checking the --validationn-- for the sequence
     for (let index = 0; index < arr.length; index++) {
       if (Number.isNaN(parseInt(arr[index]))) {
         alert('Enter appropriate values.');
@@ -52,26 +56,22 @@ export class Scanpg2Component {
       }
     }
 
-
-    // declarations
-    let seek_count = 0;
-    let i;
-    let distance, cur_track;
-    let left = [],
-      right = [];
+    //declarinng some neccesorry variables
+    let left = [],right = [];
     let seek_sequence = [];
-
-    let disk_size = 200;
+    let disk_size = 200;//declaring the disk size
     let size = arr.length;
-    let btnradio = this.selected;
+    let btnradio = this.selected;//assigning direction
     this.obj1 = { head: h_pos, array: arr, flow: btnradio };
 
-    if(btnradio == null){
+    //Validations for the Direction
+    if (btnradio == null) {
       alert("Select direction...");
       window.location.reload();
       return;
     }
 
+    //pushing the data into the database
     this.setdata.savecscan(this.obj1).subscribe(
       (data) => {
         console.log(data);
@@ -79,10 +79,12 @@ export class Scanpg2Component {
       (error) => console.log(error)
     );
 
+    //Default pushes to the array
     seek_sequence.push(h_pos);
     left.push(0);
     right.push(disk_size - 1);
 
+    //pushing the left and right tracks to the arrays
     for (let i = 0; i < size; i++) {
       if (arr[i] < h_pos) left.push(arr[i]);
       if (arr[i] > h_pos) right.push(arr[i]);
@@ -92,13 +94,11 @@ export class Scanpg2Component {
     left.sort(function (a, b) {
       return a - b;
     });
-
     right.sort(function (a, b) {
       return a - b;
     });
-
-    // first service the requests on the right side of the head.
-    console.log(btnradio);
+    
+    // servicing the requests on the each side of the head accordingly.
     if (btnradio == 'l') {
       for (let i = 0; i < right.length; i++) {
         seek_sequence.push(right[i]);
@@ -117,6 +117,7 @@ export class Scanpg2Component {
       }
     }
 
+    //Deleting the unneccesory tracks at the end of the array.
     if (
       seek_sequence[seek_sequence.length - 1] == 0 ||
       seek_sequence[seek_sequence.length - 1] == disk_size - 1
@@ -130,6 +131,7 @@ export class Scanpg2Component {
       }
     }
 
+    //Creating the answer string according to the seek sequence.
     var result = '';
     for (let i = 0; i < seek_sequence.length - 1; i++) {
       if (seek_sequence[i] < 0) {
@@ -140,28 +142,25 @@ export class Scanpg2Component {
     }
     result = result + seek_sequence[seek_sequence.length - 1];
 
+    //Calculating the seek time based on the seek sequence.
     var seek_time = 0;
     for (let i = 0; i < seek_sequence.length - 1; i++) {
       seek_time += Math.abs(seek_sequence[i] - seek_sequence[i + 1]);
     }
 
-    // this.seck = seek_sequence;
-    console.log(result);
-    // console.log(seek_count);
-
-    console.log(seek_time);
     this.finalans1 = seek_time;
     this.finalarr1 = seek_sequence;
     this.showGraphCS();
   }
 
-  // Scan
+  // Scan function
   scan(h_pos: any, ftrack: any): void {
     this.flow.push(1);
     document.getElementById('s')!.style.display = 'flex';
     document.getElementById('top')!.style.display = 'none';
     document.getElementById('bottom')!.style.display = 'block';
 
+    //checking the --validations--
     if (h_pos < 0) {
       console.log('enter positive values');
       alert('Please Enter positive value only!');
@@ -171,9 +170,9 @@ export class Scanpg2Component {
       alert('Please Input Track Data');
     }
 
-    // console.log(ftrack);
     var arr = ftrack.split(',');
 
+    //checking the --validationn-- for the sequence
     for (let index = 0; index < arr.length; index++) {
       if (Number.isNaN(parseInt(arr[index]))) {
         alert('Enter appropriate values.');
@@ -187,27 +186,22 @@ export class Scanpg2Component {
       }
     }
 
-
-    // declarations
-    let seek_count = 0;
-    let distance, cur_track;
-    let left = [],
-      right = [];
-    let i;
+    //declarinng some neccesorry variables
+    let left = [],right = [];
     let seek_sequence = [];
-    let disk_size = 200;
+    let disk_size = 200;//declaring the disk size
     let size = arr.length;
-    var btnradio = this.selected;
+    var btnradio = this.selected;//assigning direction
+    this.obj2 = { head: h_pos, array: arr, flow: btnradio };
 
-    if(btnradio == null){
+    //Validations for the Direction
+    if (btnradio == null) {
       alert("Select direction...");
       window.location.reload();
       return;
     }
 
-    this.obj2 = { head: h_pos, array: arr, flow: btnradio };
-
-    this.obj2 = { head: h_pos, array: arr, flow: btnradio };
+    //pushing the data into the database
     this.setdata.savescan(this.obj2).subscribe(
       (data) => {
         console.log(data);
@@ -215,15 +209,12 @@ export class Scanpg2Component {
       (error) => console.log(error)
     );
 
+    //Default pushes to the array
     seek_sequence.push(h_pos);
     left.push(0);
     right.push(disk_size - 1);
 
-    for (let i = 0; i < size; i++) {
-      if (arr[i] < h_pos) left.push(arr[i]);
-      if (arr[i] > h_pos) right.push(arr[i]);
-    }
-
+    //pushing the left and right tracks to the arrays
     for (let i = 0; i < size; i++) {
       if (arr[i] < h_pos) left.push(arr[i]);
       if (arr[i] > h_pos) right.push(arr[i]);
@@ -237,8 +228,7 @@ export class Scanpg2Component {
       return a - b;
     });
 
-    // first service the requests on the right side of the head.
-
+    // servicing the requests on the each side of the head accordingly.
     let run = 2;
     while (run-- > 0) {
       if (btnradio == 'l') {
@@ -258,6 +248,7 @@ export class Scanpg2Component {
       }
     }
 
+    //Deleting the unneccesory tracks at the end of the array.
     if (
       seek_sequence[seek_sequence.length - 1] == 0 ||
       seek_sequence[seek_sequence.length - 1] == disk_size - 1
@@ -271,6 +262,7 @@ export class Scanpg2Component {
       }
     }
 
+    //Creating the answer string according to the seek sequence.
     var result = '';
     for (let i = 0; i < seek_sequence.length - 1; i++) {
       console.log(seek_sequence[i]);
@@ -282,20 +274,18 @@ export class Scanpg2Component {
     }
     result = result + seek_sequence[seek_sequence.length - 1];
 
+    //Calculating the seek time based on the seek sequence.
     var seek_time = 0;
     for (let i = 0; i < seek_sequence.length - 1; i++) {
       seek_time += Math.abs(seek_sequence[i] - seek_sequence[i + 1]);
     }
 
     this.finalarr2 = seek_sequence;
-    console.log(result);
-    // console.log(seek_count);
     this.finalans2 = seek_time;
-    console.log(seek_time);
-
     this.showGraphS();
   }
 
+  //Graph for the CSCAN function.
   showGraphCS(): void {
     document.getElementById('Chart1')!.style.display = 'flex';
 
@@ -329,6 +319,8 @@ export class Scanpg2Component {
             },
           },
           x: {
+            //assigning the X-Axes to the top
+            //for the particular shape of the graph
             position: 'top',
             grid: {
               display: true,
@@ -346,6 +338,7 @@ export class Scanpg2Component {
     });
   }
 
+  //Graph for the SCAN function.
   showGraphS(): void {
     document.getElementById('Chart2')!.style.display = 'flex';
 
@@ -379,6 +372,8 @@ export class Scanpg2Component {
             },
           },
           x: {
+            //assigning the X-Axes to the top
+            //for the particular shape of the graph
             position: 'top',
             grid: {
               display: true,
@@ -395,31 +390,9 @@ export class Scanpg2Component {
       },
     });
   }
-  // getLoading() {
-  //   // Add event listener here
 
-  //   const button = document.getElementById('fullscreen-button');
-
-  //   button?.addEventListener('click', function handleClick(event) {
-  //     const loadingElement = document.createElement('div');
-  //     loadingElement.innerHTML = '<div id="ani" style="position: absolute;top: 0%;width: 100%;background: black;opacity: 0.6;z-index: 100;height: 100%;"class="d-flex justify-content-center"><div style="position:absolute;top:50%;height:85px;width:85px" class="spinner-border" role="status"><span class="sr-only"></span></div></div>';
-  //     loadingElement.id = 'loading-animation';
-  //     // loadingElement.querySelector('.loading-spinner')?.classList.add('loading-spinner-style');
-  //     document.body.appendChild(loadingElement);
-  //   });
-
-  // }
+  //refresh function
   refresh() {
     window.location.reload();
   }
-  //   DelayRedirect() {
-  //     let flag = 0;
-  //     setInterval(function () {
-  //       if (flag == 0) {
-  //         const loadingElement = document.getElementById('loading-animation')!;
-  //         loadingElement.style.display = "none";
-  //         flag = 1;
-  //       }
-  //     }, 250);
-  //   }
 }
