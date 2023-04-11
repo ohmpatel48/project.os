@@ -100,11 +100,14 @@
   <section class="bottom" id="bottom" *ngIf="display">
     <div class="card" style="background: none; border: none">
       <div class="card-body text-dark" id="mainTable">
+        <div style="display: flex; justify-content: space-between;">
         <button *ngFor="let ito of flow" id="back" (click)="refresh()">
           Back
         </button>
+        <button style="background-color: #9551a3;color: black;" (click)=" openPDF()"> Download</button>
+      </div>
         <div
-          class="table"
+          class="table" id="tab"
           style="
             display: flex;
             justify-content: center;

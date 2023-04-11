@@ -178,7 +178,6 @@ export class Marupg2Component {
     window.location.reload();
   }
   openPDF(): void {
-    console.log("Ejdn");
     let DATA: any = document.getElementById('tt');
     html2canvas(DATA).then((canvas) => {
       let fileWidth = 208;
@@ -186,7 +185,17 @@ export class Marupg2Component {
       const FILEURI = canvas.toDataURL('image/png');
       let PDF = new jsPDF('p', 'mm', 'a4');
       let position = 0;
+      PDF.setFontSize(20);
+      const heading = 'TEAM 4';
+      const headingWidth = PDF.getStringUnitWidth(heading) * PDF.getFontSize() / PDF.internal.scaleFactor;
+      PDF.text(heading, PDF.internal.pageSize.width / 2 - headingWidth / 2, 15);
+      position = 30;
       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      const now = new Date();
+      const dateStr = now.toLocaleDateString();
+      const timeStr = now.toLocaleTimeString();
+      PDF.setFontSize(8);
+      PDF.text(`Date: ${dateStr} Time: ${timeStr}`, 85, position + fileHeight + 10);
       PDF.save('MRU.pdf');
     });
   }

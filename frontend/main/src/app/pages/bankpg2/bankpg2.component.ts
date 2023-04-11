@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SetdatarrService } from 'src/app/service/setdataarr.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-banker',
@@ -97,6 +99,7 @@ export class Bankpg2Component {
       top.style.display = 'none';
     });
     document.getElementById('printProcess')!.style.display = 'block';
+    document.getElementById('download')!.style.display = 'block';
 
     let allocatedA = [];
     let allocatedB = [];
@@ -228,7 +231,30 @@ export class Bankpg2Component {
     window.location.reload();
   }
 
+  openPDF(): void {
+    console.log("Ejdn");
+    let DATA: any = document.getElementById('mainTable');
+      html2canvas(DATA).then((canvas) => {
+        let fileWidth = 208;
+        let fileHeight = (canvas.height * fileWidth) / canvas.width;
+        const FILEURI = canvas.toDataURL('image/png');
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.setFontSize(20);
+        const heading = 'TEAM 4';
+        const headingWidth = PDF.getStringUnitWidth(heading) * PDF.getFontSize() / PDF.internal.scaleFactor;
+        PDF.text(heading, PDF.internal.pageSize.width / 2 - headingWidth / 2, 15);
+        position = 30;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+        const now = new Date();
+        const dateStr = now.toLocaleDateString();
+        const timeStr = now.toLocaleTimeString();
+        PDF.setFontSize(8);
+        PDF.text(`Date: ${dateStr} Time: ${timeStr}`, 85, position + fileHeight + 10);
+      PDF.save('Banker.pdf');
+    });
+  }
 
 
 
-}
+  }
