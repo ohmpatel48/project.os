@@ -105,4 +105,39 @@ nav {
       color: #f4623a;
     }
   }
+  #back {
+    
+    text-align: center;
+    
+    transition: all 0.5s;
+    cursor: pointer;
+    margin-left: 24px;
+  
+  }
+  
+  #back{
+    cursor: pointer;
+   
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  #back:after {
+    content: '«';
+    position: absolute;
+    opacity: 0;  
+   
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  #back:hover{
+    padding-right: 24px;
+    padding-left:8px;
+  }
+  
+  #back:hover:after {
+    opacity: 1;
+    right: 10px;
+  }
   

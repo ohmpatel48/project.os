@@ -71,12 +71,12 @@ export class Rralgopg2Component {
         window.location.reload();
         return;
       }
-      if (Number.isNaN(parseInt(arrivalTime[index]))) {
+      if (Number.isNaN(parseInt(burstTime[index]))) {
         alert('Enter appropriate values.');
         window.location.reload();
         return;
       }
-      if (!Number.isInteger(parseInt(arrivalTime[index]))) {
+      if (!Number.isInteger(parseInt(burstTime[index]))) {
         alert('Enter appropriate values.');
         window.location.reload();
         return;
@@ -87,9 +87,7 @@ export class Rralgopg2Component {
         return;
       }
     }
-
-
-
+    
     for (let index = 0; index < arrivalTime.length; index++) {
       arrivalTime[index] = parseInt(arrivalTime[index]);
       burstTime[index] = parseInt(burstTime[index]);
@@ -222,10 +220,10 @@ export class Rralgopg2Component {
     for (let i = 0; i < n; i++) {
       let b = 'P' + i;
       this.table.push({
-        name: b,
-        ArrivalTime: arrivalTime[i],
-        BurstTime: burstTime[i],
-        CompilationTime: complitionTime[i],
+        Name: b,
+        AT: arrivalTime[i],
+        BT: burstTime[i],
+        CT: complitionTime[i],
         WT: waitingTime[i],
         TAT: TATime[i],
         ST: startTime[i],
