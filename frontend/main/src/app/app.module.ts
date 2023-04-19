@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { SetdatarrService } from './service/setdataarr.service';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,14 +36,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     Rralgopg2Component,
     NavbarComponent,
     BackgroundComponent,
-    AboutusComponent
+    AboutusComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
     
   ],
   providers: [SetdatarrService],

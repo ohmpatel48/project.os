@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// import { FriComponent } from './pages/fri/fri.component';
-// import { BankerComponent } from './pages/banker/banker.component';
 import { HomepgComponent } from './pages/homepg/homepg.component';
 import { Page2Component } from './pages/page2/page2.component';
 import { Rralgopg1Component } from './pages/rralgopg1/rralgopg1.component';
@@ -12,8 +10,8 @@ import { Scanpg1Component } from './pages/scanpg1/scanpg1.component';
 import { Scanpg2Component } from './pages/scanpg2/scanpg2.component';
 import { Mrupg1Component } from './pages/mrupg1/mrupg1.component';
 import { Marupg2Component } from './pages/marupg2/marupg2.component';
-// import { BackgroundComponent } from './component/background/background.component';
 import { AboutusComponent } from './pages/aboutus/aboutus.component';
+
 
 const routes: Routes = [
   
@@ -21,8 +19,7 @@ const routes: Routes = [
     path: '', 
     component: HomepgComponent,  
     pathMatch: 'full' 
-  }, 
-  
+  },
   { 
     path: 'Home/Simulators', 
     component: Page2Component, 

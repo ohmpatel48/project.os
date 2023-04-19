@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface scanrepo extends JpaRepository<scan,Integer> {
     List<scan> findByrun(int run);
+
+    List<scan> findByflow(String flow);
 }

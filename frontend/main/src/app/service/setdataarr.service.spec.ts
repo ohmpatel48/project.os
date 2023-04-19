@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SetdataarrService } from './setdataarr.service';
+import { SetdatarrService } from './setdataarr.service';
 
 describe('SetdataarrService', () => {
-  let service: SetdataarrService;
+  let service: SetdatarrService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SetdataarrService);
+    service = TestBed.inject(SetdatarrService);
   });
 
   it('should be created', () => {

@@ -31,5 +31,4 @@ export class SetdatarrService {
     console.log(table);
     return this.http.post(`${baseurl}/mru/`,table);
   }
-  
 }
