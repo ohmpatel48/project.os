@@ -95,11 +95,14 @@
   </section>
   <section class="bottom" id="bottom">
     <div class="card" style="background: none; border: none">
+      <div style="display: flex;justify-content: space-between;">
+      <button *ngFor="let ito of flow" id="back" (click)="refresh()">
+        BACK
+      </button>
+      <button id="download" (click)=" openPDF()" style="display: none;"> Download</button>
+    </div>
       <div class="card-body text-dark" id="mainTable">
-        <button *ngFor="let ito of flow" id="back" (click)="refresh()">
-          < BACK
-        </button>
-
+        
         <div class="table" style="display: flex; justify-content: center">
           <table
             class="table table-striped"
