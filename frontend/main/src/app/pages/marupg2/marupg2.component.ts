@@ -10,8 +10,10 @@ import html2canvas from 'html2canvas';
 })
 export class Marupg2Component {
 
+  //Constructor
   constructor(private setdata: SetdatarrService) { }
 
+  //Declaring some global variables
   tableData: any = [];
   savedata: any = {};
   frames: any;
@@ -33,6 +35,8 @@ export class Marupg2Component {
   hitcount = 0;
   misscount = 0;
   flow: any = [];
+
+  //Getting data from the HTML
   getData() {
     this.tableData.forEach((element: any) => {
       this.values.push(Object.values(element));
@@ -40,21 +44,21 @@ export class Marupg2Component {
     });
   }
 
+  //MAin logic for the submit button
   submit(frames: any, istring: any) {
 
     this.flow.push(1);
     const top = document.getElementById('top');
 
+    //Adding the event listner for hiding the text field
     top?.addEventListener('click', function handleClick(event) {
       top.style.display = 'none';
     });
     document.getElementById('bottom')!.style.display = 'block';
-    // bottom?.addEventListener('click', function handleClick(event) {
-    //   bottom.style.display = "block";
-    // });
 
     this.frames = frames;
 
+    //Validations for the number of frames
     if (parseInt(frames) < 1) {
       console.log('enter positive values');
       alert('Please Enter positive value only!');
@@ -68,9 +72,12 @@ export class Marupg2Component {
       return;
     }
 
+    //Splitting the string by the coma
     this.pages = istring.split(',');
     var arr = [];
     arr = istring.split(',');
+
+    //Validations for the sequence of the pages
     for (let index = 0; index < arr.length; index++) {
       if (Number.isNaN(parseInt(arr[index]))) {
         alert('Enter appropriate values.');
@@ -85,40 +92,44 @@ export class Marupg2Component {
         return;
       }
     }
+
+    //Sending data to the database
     this.savedata['frames'] = this.frames;
     this.savedata['array'] = this.pages;
     this.setdata.savemru(this.savedata).subscribe(
       (data: any) => console.log(data),
       (error) => console.log(error)
     );
+
+    //Declaring somr local variables
     let count = 0;
     let n = this.pages.length;
-
     let hit = [];
     let inst = [];
     let v = [];
+
+    //PreFilling some arrays
     for (let index = 0; index < this.pages.length; index++) {
       hit[index] = 'No';
       v[index] = '-';
-      // for (let j = 0; j < frames; j++) {
-      //     inst[index][j]="-";
-      // }
     }
-    let mentian = [];
+
+    let mentian = [];//Maintaing the final table to pushin HTML
+
+    // loop for checking all the inputed pages
     for (var i = 0; i < n; i++) {
       let temp3 = [];
       var idx = inst.indexOf(this.pages[i]);
-      if (idx == -1) {
+      if (idx == -1) { // if MISS
         if (inst.length < frames) {
-          // inst.push(pages[i]);
-          inst.unshift(this.pages[i]);
+          inst.unshift(this.pages[i]); //shifting the array
         } else {
           v[i] = inst[0];
           inst.splice(0, 1);
-          inst.unshift(this.pages[i]);
+          inst.unshift(this.pages[i]); //make the hit element the first elements
         }
         this.misscount++;
-      } else {
+      } else { //if HIT
         inst.splice(inst.indexOf(this.pages[i]), 1);
         inst.unshift(this.pages[i]);
         hit[i] = 'Yes';
@@ -132,8 +143,11 @@ export class Marupg2Component {
         }
       }
 
+      //Maintaining the array
       mentian.push(temp3);
     }
+
+    //Making the table in the HTMl
     for (let index = 0; index < this.pages.length; index++) {
       let temp: any = {};
       let tempstring = 'P' + count;
@@ -164,6 +178,7 @@ export class Marupg2Component {
       'Fault Ratio' + ': ' + (this.misscount / this.pages.length) * 100 + '%';
   }
 
+  //GEtting the green and red colors for hit and miss respectively
   getcolor(value: string): any {
     if ('No' == value) {
       return { 'background-color': '#ff6961' };
@@ -174,29 +189,35 @@ export class Marupg2Component {
     }
   }
 
+  //refresing the page
   refresh() {
     window.location.reload();
   }
+
+  ////Function for downloading the pdf
   openPDF(): void {
-    let DATA: any = document.getElementById('tt');
+    let DATA: any = document.getElementById('tt'); // get HTML id
+    //converting html to the canvas element
     html2canvas(DATA).then((canvas) => {
       let fileWidth = 208;
       let fileHeight = (canvas.height * fileWidth) / canvas.width;
-      const FILEURI = canvas.toDataURL('image/png');
-      let PDF = new jsPDF('p', 'mm', 'a4');
+      const FILEURI = canvas.toDataURL('image/png'); // converting CANVAS to the IMAGE
+      let PDF = new jsPDF('p', 'mm', 'a4'); //converting image into A4 PDF
       let position = 0;
       PDF.setFontSize(20);
-      const heading = 'TEAM 4';
+      const heading = 'TEAM 4'; //Heading of teh PDF
       const headingWidth = PDF.getStringUnitWidth(heading) * PDF.getFontSize() / PDF.internal.scaleFactor;
       PDF.text(heading, PDF.internal.pageSize.width / 2 - headingWidth / 2, 15);
       position = 30;
       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+
+      //Date and time for the pdf
       const now = new Date();
       const dateStr = now.toLocaleDateString();
       const timeStr = now.toLocaleTimeString();
       PDF.setFontSize(8);
       PDF.text(`Date: ${dateStr} Time: ${timeStr}`, 85, position + fileHeight + 10);
-      PDF.save('MRU.pdf');
+      PDF.save('MRU.pdf'); //name of the file
     });
   }
 }
