@@ -11,7 +11,7 @@ import html2canvas from 'html2canvas';
 })
 export class Bankpg2Component {
   constructor(private setdata: SetdatarrService) { }
-  table: any = [];
+  table: any = []; //declaration of variables
   max: any = [];
   alloc: any = [];
   avail: any = [];
@@ -20,35 +20,35 @@ export class Bankpg2Component {
   string: any;
   flow: any = [];
   hidebutton: any = true;
-  addRow(max: any, alloc: any, avail: any): void {
+  addRow(max: any, alloc: any, avail: any): void {   //to add row in table
     document.getElementById('A1')!.style.display = 'none';
-    var maxx = max.split(',');
+    var maxx = max.split(',');  //max field value store and seprated by ,
     max = maxx;
-    var allocc = alloc.split(',');
+    var allocc = alloc.split(','); //allocation
     alloc = allocc;
-    var availl = avail.split(',');
+    var availl = avail.split(','); //available
     avail = availl;
     let a = this.table.length;
-    let b = 'P' + a;
+    let b = 'P' + a;  // process No.
     while (this.table.findIndex((nam: { name: any }) => nam.name === b) != -1) {
       a++;
       b = 'P' + a;
     }
 
-    if (max.length > 3 || avail.length > 3 || alloc.length > 3) {
+    if (max.length > 3 || avail.length > 3 || alloc.length > 3) {  // Validation of Input and give error
       alert('Enter appropriate values.');
       window.location.reload();
       return;
     }
     else {
-      for (let index = 0; index < 3; index++) {
+      for (let index = 0; index < 3; index++) {   //validation
         if (Number.isNaN(parseInt(max[index])) || Number.isNaN(parseInt(alloc[index])) || Number.isNaN(parseInt(avail[index]))) {
           alert('Enter appropriate values.');
           window.location.reload();
           return;
         }
       }
-      for (let index = 0; index < 3; index++) {
+      for (let index = 0; index < 3; index++) {  //validation
         if (!(Number.isInteger(parseInt(max[index])) || Number.isInteger(parseInt(alloc[index])) || Number.isInteger(parseInt(avail[index])))) {
           alert('Enter appropriate values.');
           window.location.reload();
@@ -58,7 +58,7 @@ export class Bankpg2Component {
 
     }
 
-    this.table.push({
+    this.table.push({ //push value in table
       name: b,
       avaA: avail[0],
       avaB: avail[1],
@@ -73,15 +73,15 @@ export class Bankpg2Component {
     console.log(this.table);
   }
 
-  removeRow(): void {
+  removeRow(): void {   //remove row from table
     this.table.splice(this.table.length - 1, 1);
     if (this.table.length == 0) {
       document.getElementById('A1')!.style.display = 'flex';
     }
   }
-  submitValue(): void {
+  submitValue(): void {   // Main Logic
 
-    if (this.table.length < 1) {
+    if (this.table.length < 1) {  // validation
       alert('Enter appropriate values.');
       window.location.reload();
       return;
@@ -98,10 +98,10 @@ export class Bankpg2Component {
     top?.addEventListener('click', function handleClick(event) {
       top.style.display = 'none';
     });
-    document.getElementById('printProcess')!.style.display = 'block';
+    document.getElementById('printProcess')!.style.display = 'block';  // hide textfield on click event
     document.getElementById('download')!.style.display = 'block';
 
-    let allocatedA = [];
+    let allocatedA = [];  //calculating Need metrix , Available ,Allocation , Max
     let allocatedB = [];
     let allocatedC = [];
     let maximumA = [];
@@ -111,7 +111,7 @@ export class Bankpg2Component {
     let n = this.table.length;
 
     for (let i = 0; i < this.table.length; i++) {
-      allocatedA.push(parseInt(this.table[i].allocA));
+      allocatedA.push(parseInt(this.table[i].allocA));  //storing value from textfield
       allocatedB.push(parseInt(this.table[i].allocB));
       allocatedC.push(parseInt(this.table[i].allocC));
       maximumA.push(parseInt(this.table[i].maxA));
@@ -134,7 +134,7 @@ export class Bankpg2Component {
       maximumALL[i][2] = maximumC[i];
     }
 
-    availableResorces.push(parseInt(this.table[0].avaA));
+    availableResorces.push(parseInt(this.table[0].avaA)); //calculating available resources
     availableResorces.push(parseInt(this.table[0].avaB));
     availableResorces.push(parseInt(this.table[0].avaC));
 
@@ -144,7 +144,7 @@ export class Bankpg2Component {
     let sumB = 0;
     let sumC = 0;
 
-    for (let i = 0; i < allocatedA.length; i++) {
+    for (let i = 0; i < allocatedA.length; i++) {  // find work metrix as sum
       sumA = sumA + allocatedA[i];
       sumB = sumB + allocatedB[i];
       sumC = sumC + allocatedC[i];
@@ -163,7 +163,7 @@ export class Bankpg2Component {
     }
 
     // console.log(maximumALL[0][0])
-    let need = new Array(n);
+    let need = new Array(n);  //calculating Need Matrix
     for (let i = 0; i < n; i++) {
       // let temp :any= [];
       need[i] = new Array(3);
@@ -173,7 +173,7 @@ export class Bankpg2Component {
     }
     console.log(need);
 
-    if (!deadlock) {
+    if (!deadlock) { //check if deadlock
       this.finalans.push('Deadlock');
     } else {
       // this.finalans.push("not deadlock");
@@ -189,7 +189,7 @@ export class Bankpg2Component {
           if (flag[j] == 0) {
             let temp = false;
             for (let k = 0; k < 3; k++) {
-              if (need[j][k] > availableResorces[k]) {
+              if (need[j][k] > availableResorces[k]) {   // if need is grater than available then deadlock
                 temp = true;
                 break;
               }
@@ -212,7 +212,7 @@ export class Bankpg2Component {
         let str = ' P' + ans[i];
         // this.finalans.push(str);
         // ansstr = ansstr+str;
-        this.finalans.push(str);
+        this.finalans.push(str);   //  push final answer with process id
       }
     }
 
@@ -220,28 +220,28 @@ export class Bankpg2Component {
     this.finalans = [];
   }
   hidetable() {
-    if (this.table.length == 0) {
+    if (this.table.length == 0) {  // hide table on back
       return false;
     } else {
       return true;
     }
   }
 
-  refresh() {
+  refresh() {   // for refresh website
     window.location.reload();
   }
 
-  openPDF(): void {
+  openPDF(): void {   // download function
     console.log("Ejdn");
-    let DATA: any = document.getElementById('mainTable');
-      html2canvas(DATA).then((canvas) => {
+    let DATA: any = document.getElementById('mainTable');   // get canvas of id mainTable
+      html2canvas(DATA).then((canvas) => {   // convert html to canvas
         let fileWidth = 208;
         let fileHeight = (canvas.height * fileWidth) / canvas.width;
         const FILEURI = canvas.toDataURL('image/png');
-        let PDF = new jsPDF('p', 'mm', 'a4');
+        let PDF = new jsPDF('p', 'mm', 'a4');   // store canvas as pdf A4
         let position = 0;
         PDF.setFontSize(20);
-        const heading = 'TEAM 4';
+        const heading = 'TEAM 4';   //title of pdf
         const headingWidth = PDF.getStringUnitWidth(heading) * PDF.getFontSize() / PDF.internal.scaleFactor;
         PDF.text(heading, PDF.internal.pageSize.width / 2 - headingWidth / 2, 15);
         position = 30;
@@ -250,7 +250,7 @@ export class Bankpg2Component {
         const dateStr = now.toLocaleDateString();
         const timeStr = now.toLocaleTimeString();
         PDF.setFontSize(8);
-        PDF.text(`Date: ${dateStr} Time: ${timeStr}`, 85, position + fileHeight + 10);
+        PDF.text(`Date: ${dateStr} Time: ${timeStr}`, 85, position + fileHeight + 10);  // date and time on pdf
       PDF.save('Banker.pdf');
     });
   }
