@@ -11,8 +11,7 @@ import html2canvas from 'html2canvas';
 export class Rralgopg2Component {
   constructor(private setdata: SetdatarrService) { }
 
-
-  //just trying git again
+  //defigning the globle variables
   timequant: any;
   table: any = [];
   savetable: any = [];
@@ -27,26 +26,33 @@ export class Rralgopg2Component {
   averageResponseTime: any;
   final: any = [];
 
+  //setData function for sending the data to the database
   setData() {
     this.table.forEach((element: any) => {
       this.values.push(Object.values(element));
       this.keys = Object.keys(element);
     });
   }
+
+  //Main logic that works on clicking the submit button
   submit(frames: any, istring: any, timeq: any) {
     this.display = true;
     this.flow.push(1);
     const top = document.getElementById('top');
+
+    //EventListner for the style
     top?.addEventListener('click', function handleClick(event) {
       top.style.display = 'none';
     });
 
+    //Getting the data from the datafields from html
     let arrivalTime = frames.split(',');
     let burstTime = istring.split(',');
     this.arrivalTime = frames.split(',');
     this.burstTime = istring.split(',');
     this.timequant = timeq;
 
+    //Validations for thetimeQuanta that is inputed by the users
     if (timeq < 1) {
       console.log('enter positive values');
       alert('Please Enter positive value only!');
@@ -60,6 +66,7 @@ export class Rralgopg2Component {
       return;
     }
 
+    //Validations for the arrivle time and burstTime
     for (let index = 0; index < arrivalTime.length; index++) {
       if (Number.isNaN(parseInt(arrivalTime[index]))) {
         alert('Enter appropriate values.');
@@ -88,11 +95,13 @@ export class Rralgopg2Component {
       }
     }
     
+    //Type casting the inputs from string to integers
     for (let index = 0; index < arrivalTime.length; index++) {
       arrivalTime[index] = parseInt(arrivalTime[index]);
       burstTime[index] = parseInt(burstTime[index]);
     }
 
+    //defigning some local variables for the calculations
     let processSequence = [];
     let processSequenceTime = [];
 
@@ -103,11 +112,11 @@ export class Rralgopg2Component {
     let readyQueue = [];
     let complitionQueue = [];
     let readyQueueExists = [];
+
+    //Prefilling the arrays
     for (let index = 0; index < n; index++) readyQueueExists[index] = false;
     let remainingBurstTime = [];
-    for (let i = 0; i < n; i++) {
-      remainingBurstTime[i] = burstTime[i];
-    }
+    for (let i = 0; i < n; i++) remainingBurstTime[i] = burstTime[i];
     let isComplited = [];
     for (let index = 0; index < n; index++) isComplited[index] = false;
     let firstTimeBools = [];
@@ -119,14 +128,18 @@ export class Rralgopg2Component {
       startTime[index] = 0;
     }
 
-    // for (let index = 0; index < n; index++)complitionTime[index] = 0;
     let time = 0;
     let tempTime = 0;
     let mahil = 0;
     let bool = false;
 
+    //runnig the while loop until complition queue get filled completly
     while (complitionQueue.length != n) {
+
+      //running this loop for linear insertion in the ready queue
       while (time != tempTime) {
+
+        //Filling the insertion queue
         for (let index = 0; index < n; index++) {
           if (
             arrivalTime[index] <= tempTime &&
@@ -140,52 +153,57 @@ export class Rralgopg2Component {
         tempTime++;
       }
 
+      //setting the boolean for the next insertion
       if (bool) {
         bool = false;
         readyQueue.push(mahil);
       }
 
+      //checking the first element of the ready queue by
+      //assigning it to the currentprocess variable
       if (readyQueue.length != 0) {
         let temp = 0;
         let currentProcess = readyQueue[0];
+
+        //Storing the start time if the process is coming for the first time
         if (firstTimeBools[currentProcess] == false) {
           startTime[currentProcess] = time - 1;
           firstTimeBools[currentProcess] = true;
         }
+
+        //will go in if if the timeQ is greater than remaining burst time
         if (remainingBurstTime[currentProcess] <= timeq) {
           processSequence.push('P' + currentProcess);
           processSequenceTime.push(time - 1);
-          time = time + remainingBurstTime[currentProcess];
-          temp = time - 1;
-          complitionTime.push(temp);
-          tempCT.push(currentProcess);
-          // this.table[currentProcess].compilation = complitionTime[currentProcess];
-          isComplited[currentProcess] = true;
+          time = time + remainingBurstTime[currentProcess];//
+          temp = time - 1;                                 // Storing the complition time
+          complitionTime.push(temp);                       // 
+          tempCT.push(currentProcess);                      
+          isComplited[currentProcess] = true;// mark process as complited
           complitionQueue.push(currentProcess);
-          readyQueue.splice(0, 1);
+          readyQueue.splice(0, 1);//delete the process from the readyQueue
           time--;
-        } else {
-          processSequence.push('P' + currentProcess);
-          processSequenceTime.push(time - 1);
+        } 
+        //will go in else if the the other case is applieed
+        else {
+          processSequence.push('P' + currentProcess);//keeping for the Gantt chart
+          processSequenceTime.push(time - 1);        //
           remainingBurstTime[currentProcess] -= timeq;
-          time = time + parseInt(timeq) - 1;
-
+          time = time + parseInt(timeq) - 1;//increase the time by adding the timeQ
           readyQueueExists[currentProcess] = true;
           mahil = currentProcess;
-          // let temp =0;
-          // temp =  readyQueue[0];
-          // readyQueue.push(readyQueue[0]);
           readyQueue.splice(0, 1);
           bool = true;
-          // readyQueue.push(temp);
         }
       }
 
-      time++;
+      time++;//linear time incresing
     }
 
     processSequenceTime.push(time - 1);
     let flag = [];
+
+    //Making the final complition time array
     for (let index = 0; index < n; index++) {
       flag[tempCT[index]] = complitionTime[index];
     }
@@ -196,12 +214,14 @@ export class Rralgopg2Component {
     let waitingTime = [];
     let TATime = [];
 
+    //Calculating the TAT,WT and RT
     for (let index = 0; index < n; index++) {
       TATime[index] = complitionTime[index] - arrivalTime[index];
       waitingTime[index] = TATime[index] - burstTime[index];
       responsiveTime[index] = startTime[index] - arrivalTime[index];
     }
 
+    //Calculating the average of required times
     let avgRT = 0,
       avgTAT = 0,
       avgWT = 0;
@@ -217,6 +237,7 @@ export class Rralgopg2Component {
     this.averageWaitingTime = 'AverageWaitingTime: ' + avgWT;
     this.averageResponseTime = 'AverageResponseTime: ' + avgRT;
 
+    //showing the table 
     for (let i = 0; i < n; i++) {
       let b = 'P' + i;
       this.table.push({
@@ -240,21 +261,25 @@ export class Rralgopg2Component {
         rt: responsiveTime[i],
       });
     }
+
     this.setData();
     console.log(this.savetable);
     this.setdata.saverr(this.savetable).subscribe(
       (data) => { console.log(data); },
       (error) => { console.log(error); }
-    );
+      );
+    //Gantt chart code :: 
     let objtemp: any = {};
     objtemp['color'] = 'rgb(255, 255, 255,0.9)';
     objtemp['pid'] = 'Pid';
     objtemp['time'] = processSequenceTime[0];
     this.final.push(objtemp);
-    const randomColors = [];
+    const randomColors = [];//Getting random colors for the Gantt chart
     for (let i = 0; i < this.table.length; i++) {
       randomColors.push(this.getRandomColor());
     }
+
+    //making the Gantt chart
     for (let i = 0; i < processSequence.length; i++) {
       let obj: any = {};
       obj['pid'] = processSequence[i];
@@ -263,9 +288,13 @@ export class Rralgopg2Component {
       this.final.push(obj);
     }
   }
+
+  //Refresh function
   refresh() {
     window.location.reload();
   }
+
+  //Get loading effect
   DelayRedirect() {
     let flag = 0;
     setInterval(function () {
@@ -276,6 +305,8 @@ export class Rralgopg2Component {
       }
     }, 250);
   }
+
+  // Random RGB colors
   getRandomColor() {
     const r = Math.floor(Math.random() * 256);
     const g = Math.floor(Math.random() * 256);
@@ -287,9 +318,10 @@ export class Rralgopg2Component {
   }
   getLoading() {
     // Add event listener here
-
+    //Creating the element for the Iner HTML
     const button = document.getElementById('fullscreen-button');
 
+    //event Listner
     button?.addEventListener('click', function handleClick(event) {
       const loadingElement = document.createElement('div');
       loadingElement.innerHTML =
@@ -298,30 +330,35 @@ export class Rralgopg2Component {
       loadingElement
         .querySelector('.loading-spinner')
         ?.classList.add('loading-spinner-style');
-      document.body.appendChild(loadingElement);
+      document.body.appendChild(loadingElement);//Appending the chilld to the HTML
     });
   }
 
+  //Download PDF function
   openPDF(): void {
-    let DATA: any = document.getElementById('tab');
+    let DATA: any = document.getElementById('tab');//getting the ID of printing elements
+
+      //Converting HTML to Canvas
       html2canvas(DATA).then((canvas) => {
         let fileWidth = 208;
         let fileHeight = (canvas.height * fileWidth) / canvas.width;
-        const FILEURI = canvas.toDataURL('image/png');
-        let PDF = new jsPDF('p', 'mm', 'a4');
-        let position = 0;
-        PDF.setFontSize(20);
-        const heading = 'TEAM 4';
+        const FILEURI = canvas.toDataURL('image/png');//upload canvas  as image
+        let PDF = new jsPDF('p', 'mm', 'a4');///converting image as A4 PDF
+        let position = 0;   // positioning
+        PDF.setFontSize(20);//
+        const heading = 'TEAM 4';//title of the PDF
         const headingWidth = PDF.getStringUnitWidth(heading) * PDF.getFontSize() / PDF.internal.scaleFactor;
         PDF.text(heading, PDF.internal.pageSize.width / 2 - headingWidth / 2, 15);
         position = 30;
         PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+
+        //Getting current date and time to prinnt at the end
         const now = new Date();
         const dateStr = now.toLocaleDateString();
         const timeStr = now.toLocaleTimeString();
         PDF.setFontSize(8);
-        PDF.text(`Date: ${dateStr} Time: ${timeStr}`, 85, position + fileHeight + 10);
-      PDF.save('RR.pdf');
+        PDF.text(`Date: ${dateStr} Time: ${timeStr}`, 85, position + fileHeight + 10);//date and time added
+      PDF.save('RR.pdf');//save PDF
     });
   }
 }
