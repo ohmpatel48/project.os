@@ -23,6 +23,9 @@ nav {
     color: #fff;
     font-size: 1.5vw;
     font-weight: 590;
+    background: linear-gradient(45deg, #cb22d8, #819bc1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
   .menu ul {
